@@ -1,0 +1,20 @@
+<div>
+    <app-header [text]="textspan()"></app-header>
+    <div class="container">
+        <div class="main-container">
+            <div class="form-section">
+                <h1>{{ text() }}</h1>
+                <ng-content></ng-content>
+                 <button type="button" class="btn-registration">{{ label() }}</button>
+            </div>
+
+             <!-- Right Side: Welcome Block -->
+            <div class="welcome-section">
+                <h2>{{ welcomeText() }}</h2>
+                <p>Don't have on account</p>
+                <button class="btn-login">{{ buttonText() }}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

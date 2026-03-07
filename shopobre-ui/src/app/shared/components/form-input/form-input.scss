@@ -1,0 +1,23 @@
+.input-group-custom {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.input-group-custom input {
+  width: 100%;
+  background-color: #dce0e4;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 45px 15px 20px;
+  color: #6c757d;
+  font-size: 15px;
+}
+
+.input-group-custom i {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 18px;
+}

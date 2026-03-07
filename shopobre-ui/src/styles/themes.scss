@@ -1,0 +1,40 @@
+:root {
+    --header-bg: #ffffff;
+    --btn-bg: #310a31;
+    --btn-color: #ffffff;
+    --search-bg: #f8f9fa;
+    --text-primary-color: #6c757d;
+    --text-second-color: #d63384;
+}
+
+.header-bg {
+    background-color: var(--header-bg);
+}
+
+.btn-bg {
+    background-color: var(--btn-bg);
+}
+
+.search-bg {
+    background-color: var(--search-bg);
+}
+
+.search-input-bg{
+    background-color: transparent;
+}
+
+.btn-color {
+    color: var(--btn-color);
+}
+
+.text-primary-color {
+    color: var(--text-primary-color)
+}
+
+.text-second-color {
+    color: var(--text-second-color);
+}
+
+.cart-icon-color {
+    color: var(--btn-bg);
+}
