@@ -1,14 +1,13 @@
 <div>
-    <app-header [text]="textspan()"></app-header>
+    <app-header [text]="textspan()" [isRegister]="true"></app-header>
     <div class="container">
         <div class="main-container">
-            <div class="form-section">
+            <div class="form-section d-flex flex-column justify-content-center">
                 <h1>{{ text() }}</h1>
                 <ng-content></ng-content>
                  <button type="button" class="btn-registration">{{ label() }}</button>
             </div>
 
-             <!-- Right Side: Welcome Block -->
             <div class="welcome-section">
                 <h2>{{ welcomeText() }}</h2>
                 <p>Don't have on account</p>
