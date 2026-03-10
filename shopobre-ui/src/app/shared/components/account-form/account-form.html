@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="main-card">
+    <h4 class="card-title text-second-color">Edit Your Profile</h4>
+
+    <div class="row">
+      <div class="col-md-6">
+        <app-form-edit [type]="'text'" [label]="'First Name'" [placeholder]="'Md'"></app-form-edit>
+      </div>
+      <div class="col-md-6">
+        <app-form-edit
+          [type]="'text'"
+          [label]="'Last Name'"
+          [placeholder]="'Rimel'"
+        ></app-form-edit>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <app-form-edit
+          [type]="'email'"
+          [label]="'Email'"
+          [placeholder]="'rimel1111@gmail.com'"
+        ></app-form-edit>
+      </div>
+      <div class="col-md-6">
+        <app-form-edit
+          [type]="'text'"
+          [label]="'Phone'"
+          [placeholder]="'1234-5678'"
+        ></app-form-edit>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <app-form-edit
+          [type]="'password'"
+          [label]="'Password Changes'"
+          [placeholder]="'Current Password'"
+        ></app-form-edit>
+        <app-form-edit [type]="'password'" [placeholder]="'New Password'"></app-form-edit>
+        <app-form-edit [type]="'password'" [placeholder]="'Confirm New Password'"></app-form-edit>
+      </div>
+    </div>
+
+    <div class="actions-footer">
+      <button class="btn-cancel">Cancel</button>
+      <button class="btn-save">Save Changes</button>
+    </div>
+  </div>
+</div>
