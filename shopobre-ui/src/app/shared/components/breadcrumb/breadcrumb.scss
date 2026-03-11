@@ -1,0 +1,25 @@
+.product-breadcrumb {
+  .breadcrumb {
+    background: transparent;
+    font-size: 0.875rem;
+  }
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: '/';
+    color: var(--text-primary-color, #6c757d);
+  }
+
+  .breadcrumb-item a {
+    color: var(--text-primary-color, #6c757d);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text-second-color, #d63384);
+    }
+  }
+
+  .breadcrumb-item.active span {
+    color: #000;
+    font-weight: 500;
+  }
+}
