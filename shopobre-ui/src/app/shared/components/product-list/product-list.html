@@ -1,10 +1,12 @@
-<div class="product-table-header">
+<div class="product-table-header mb-2">
   <div><input class="form-check-input checkbox-lg" type="checkbox" /></div>
   <div>Product Name</div>
   <div>Created At</div>
-  <div>Category</div>
-  <div>Quantity</div>
   <div>Status</div>
   <div>Price</div>
   <div class="text-center">Action</div>
+</div>
+
+<div class="product-cards">
+  <app-product-list-card *ngFor="let product of products" [product]="product"></app-product-list-card>
 </div>
