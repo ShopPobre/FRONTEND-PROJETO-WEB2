@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class TopNavBar {
 
+  isDropdownOpen = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 }

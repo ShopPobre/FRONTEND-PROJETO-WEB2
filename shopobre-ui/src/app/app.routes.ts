@@ -4,6 +4,7 @@ import { Signup } from './pages/signup/signup';
 import { Account } from './pages/account/account';
 import { Address } from './pages/address/address';
 import { Product } from './pages/admin-mode/product/product';
+import { AddProduct } from './pages/admin-mode/add-product/add-product';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'address', component: Address},
 
     //MODO ADMIN
-    { path: 'admin/product', component: Product}
+    { path: 'admin/product', component: Product},
+    { path: 'admin/product/add', component: AddProduct}
 ];
