@@ -1,12 +1,12 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-button',
+  selector: 'app-actions-footer',
   imports: [],
-  templateUrl: './button.html',
-  styleUrl: './button.scss',
+  templateUrl: './actions-footer.html',
+  styleUrl: './actions-footer.scss',
 })
-export class Button {
+export class ActionsFooter {
 
   label = input.required<string>();
   @Output() btnClick = new EventEmitter<void>();

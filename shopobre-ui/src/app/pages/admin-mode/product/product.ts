@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SideBar } from "../../../shared/components/side-bar/side-bar";
 import { TopNavBar } from "../../../shared/components/top-nav-bar/top-nav-bar";
 import { ControlActions } from "../../../shared/components/control-actions/control-actions";
 import { ProductList } from "../../../shared/components/product-list/product-list";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -11,5 +12,13 @@ import { ProductList } from "../../../shared/components/product-list/product-lis
   styleUrl: './product.scss',
 })
 export class Product {
+
+  private router = inject(Router);
+
+
+  navegar() {
+    this.router.navigate(['admin/product/add']);
+  }
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Button } from "../button/button";
 
 @Component({
@@ -10,5 +10,7 @@ import { Button } from "../button/button";
 export class ControlActions {
 
   label = input.required<string>();
+
+  @Output() btnClick = new EventEmitter<void>();
 
 }

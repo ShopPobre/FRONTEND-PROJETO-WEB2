@@ -1,0 +1,38 @@
+<div class="edit-card">
+  <h2 class="card-title">{{ label() }}</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <app-form-edit [type]="'text'" [label]="'First Name'" [placeholder]="'Md'"></app-form-edit>
+    </div>
+    <div class="col-md-6">
+      <app-form-edit [type]="'text'" [label]="'Last Name'" [placeholder]="'Rimel'"></app-form-edit>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <app-form-edit
+        [type]="'email'"
+        [label]="'Email'"
+        [placeholder]="'rimel1111@gmail.com'"
+      ></app-form-edit>
+    </div>
+    <div class="col-md-6">
+      <app-form-edit [type]="'text'" [label]="'Phone'" [placeholder]="'1234-5678'"></app-form-edit>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <app-form-edit
+        [type]="'password'"
+        [label]="'Password Changes'"
+        [placeholder]="'Current Password'"
+      ></app-form-edit>
+      <app-form-edit [type]="'password'" [placeholder]="'New Password'"></app-form-edit>
+      <app-form-edit [type]="'password'" [placeholder]="'Confirm New Password'"></app-form-edit>
+    </div>
+  </div>
+
+  <app-actions-footer [label]="'Add Product'" (btnClick)="btnClick.emit()"></app-actions-footer>
+</div>
