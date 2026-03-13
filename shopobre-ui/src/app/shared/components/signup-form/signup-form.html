@@ -2,26 +2,31 @@
     <app-form-input
         [type]="'text'"
         [placeholder]="'Name'"
-        [icon]="'far fa-user'"> 
+        [icon]="'far fa-user'"
+        (valueChange)="updateField('name', $event)"> 
     </app-form-input>
     <app-form-input
         [type]="'email'"
         [placeholder]="'Email'"
-        [icon]="'far fa-envelope'"> 
+        [icon]="'far fa-envelope'"
+        (valueChange)="updateField('email', $event)"> 
     </app-form-input>
     <app-form-input
         [type]="'text'"
         [placeholder]="'Cpf'"
-        [icon]="'far fa-user'"> 
+        [icon]="'far fa-user'"
+        (valueChange)="updateField('cpf', $event)"> 
     </app-form-input>
     <app-form-input
         [type]="'tel'"
         [placeholder]="'Telefone'"
-        [icon]="'fas fa-phone-alt'"> 
+        [icon]="'fas fa-phone-alt'"
+        (valueChange)="updateField('telefone', $event)"> 
     </app-form-input>
     <app-form-input
         [type]="'password'"
         [placeholder]="'Password'"
-        [icon]="'fas fa-lock'"> 
+        [icon]="'fas fa-lock'"
+        (valueChange)="updateField('password', $event)"> 
     </app-form-input>
 </form>

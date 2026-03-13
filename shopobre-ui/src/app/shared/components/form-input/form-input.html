@@ -2,6 +2,7 @@
   <input 
     [type]="type()"
     [placeholder]="placeholder()"
+    (input)="onInput($event)"
   >
   <i [class]="icon()"></i>
 </div>

@@ -1,7 +1,9 @@
 <app-default-login-signup-layout
     [text]="'Registre-se'"
-    [textspan]="'Login'"
+    [textspan]="' Login'"
     [label]="'Registre-se'"
     [welcomeText]="'Welcome Back'"
-    [buttonText]="'Login'">
-<app-signup-form></app-signup-form></app-default-login-signup-layout>
+    [buttonText]="'Login'"
+    (btnClick)="navegar()"
+    (action)="signup()">
+<app-signup-form [(userData)]="userData"></app-signup-form></app-default-login-signup-layout>
