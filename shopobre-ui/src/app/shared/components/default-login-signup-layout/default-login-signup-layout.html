@@ -1,17 +1,17 @@
 <div>
-    <app-header [text]="textspan()" [isRegister]="true"></app-header>
+    <app-header [text]="textspan()" [isRegister]="true" (btnClick)="btnClick.emit()"></app-header>
     <div class="container">
         <div class="main-container">
             <div class="form-section d-flex flex-column justify-content-center">
                 <h1>{{ text() }}</h1>
                 <ng-content></ng-content>
-                 <button type="button" class="btn-registration">{{ label() }}</button>
+                 <button type="button" class="btn-registration" (click)="action.emit()">{{ label() }}</button>
             </div>
 
             <div class="welcome-section">
                 <h2>{{ welcomeText() }}</h2>
                 <p>Don't have on account</p>
-                <button class="btn-login">{{ buttonText() }}</button>
+                <button class="btn-login" (click)="btnClick.emit()">{{ buttonText() }}</button>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, input, Input, signal } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output, signal } from '@angular/core';
 import { Button } from '../button/button';
 import { SearchInput } from '../search-input/search-input';
 import { DropdownCustom } from '../dropdown-custom/dropdown-custom';
@@ -15,5 +15,7 @@ export class Header {
   labelButton = signal("Pesquisar");
   placeholder = signal("Macbook m4");
   text = input('');
+
+  @Output() btnClick = new EventEmitter<void>();
 
 }
