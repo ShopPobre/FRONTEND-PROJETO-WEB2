@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-form-input',
@@ -11,4 +11,10 @@ export class FormInput {
   placeholder = input.required<string>();
   icon = input.required<string>();
 
+  @Output() valueChange = new EventEmitter<string>();
+
+  onInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.valueChange.emit(value);
+  }
 }

@@ -12,7 +12,9 @@
 
       <div class="user-nav d-flex align-items-center gap-4 fs-6">
         @if (isRegister()) {
-          <span>Olá, <span class="text-second-color fw-bold">{{ text() }}</span></span>
+          <button type="button" (click)="btnClick.emit()" class="btn-reset-style">
+            Olá,  <span class="text-second-color fw-bold">{{ text() }}</span>
+          </button>
         } @else {
           <app-dropdown-custom></app-dropdown-custom>
         }
