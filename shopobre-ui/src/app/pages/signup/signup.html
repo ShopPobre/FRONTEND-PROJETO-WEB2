@@ -4,5 +4,6 @@
     [label]="'Registre-se'"
     [welcomeText]="'Welcome Back'"
     [buttonText]="'Login'"
-    (btnClick)="navegar()">
-<app-signup-form></app-signup-form></app-default-login-signup-layout>
+    (btnClick)="navegar()"
+    (action)="signup()">
+<app-signup-form [(userData)]="userData"></app-signup-form></app-default-login-signup-layout>

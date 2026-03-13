@@ -29,8 +29,8 @@ export class Login {
 
   login() {
     this.authService.login(this.authData()).subscribe({
-      next: (response) => {
-        console.log('Login realizado', response);
+      next: (response: any) => {
+        this.authService.setToken(response.accessToken);
 
         Swal.fire({
           toast: true,
@@ -46,13 +46,13 @@ export class Login {
       },
 
       error: (err) => {
-        console.log(err);
+        const mensagemErro = err.error?.error || err.error?.message || 'Erro no servidor';
 
         Swal.fire({
           toast: true,
           position: 'bottom-end',
           icon: 'error',
-          title: err.error?.message || 'Erro no servidor',
+          title:mensagemErro,
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
