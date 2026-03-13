@@ -15,7 +15,7 @@ export class AddProduct {
 
 
   navegar() {
-    this.router.navigate(['admin/product']);
+    this.router.navigate(['products']);
   }
 
 }

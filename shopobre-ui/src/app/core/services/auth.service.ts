@@ -27,4 +27,12 @@ export class AuthService {
   setToken(token: string): void {
     this.sessionStorage.set(this.TOKEN_KEY, token);
   }
+
+  getUserRole(): string | null {
+    const token = sessionStorage.getItem('access_token');
+
+    if (!token) return null;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.role;
+  }
 }

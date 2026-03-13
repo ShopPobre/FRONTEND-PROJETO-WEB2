@@ -31,6 +31,7 @@ export class Login {
     this.authService.login(this.authData()).subscribe({
       next: (response: any) => {
         this.authService.setToken(response.accessToken);
+        const role = this.authService.getUserRole();
 
         Swal.fire({
           toast: true,
@@ -42,7 +43,12 @@ export class Login {
           timerProgressBar: true,
         });
 
-        this.router.navigate(['home']);
+        console.log(role);
+        if (role === 'ADMIN') {
+          this.router.navigate(['products']);
+        } else {
+          this.router.navigate(['home']);
+        }
       },
 
       error: (err) => {
@@ -52,7 +58,7 @@ export class Login {
           toast: true,
           position: 'bottom-end',
           icon: 'error',
-          title:mensagemErro,
+          title: mensagemErro,
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
