@@ -1,0 +1,49 @@
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, switchMap, of } from 'rxjs';
+import { ApiService } from './api.service';
+import { AuthService } from './auth.service';
+import { Category, CategoryResponse } from '../models/category.model';
+
+@Injectable({ providedIn: 'root' })
+export class CategoryService {
+  private http = inject(HttpClient);
+  private api = inject(ApiService);
+  private authService = inject(AuthService);
+
+  private get url() {
+    return `${this.api.getBaseUrl()}/categories`;
+  }
+
+  private get headers() {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.authService.getToken()}`,
+    });
+  }
+
+  getCategories() {
+    return this.http.get<CategoryResponse>(this.url, { headers: this.headers }).pipe(
+      map((response) => response.data)
+    );
+  }
+
+  createCategory(name: string) {
+    return this.http.post<Category>(this.url, { name }, { headers: this.headers });
+  }
+
+  findOrCreate(name: string) {
+    return this.getCategories().pipe(
+      switchMap((categories) => {
+        const found = categories.find(
+          (c) => c.name.toLowerCase() === name.toLowerCase()
+        );
+
+        if (found) {
+          return of(found); 
+        }
+
+        return this.createCategory(name);
+      })
+    );
+  }
+}

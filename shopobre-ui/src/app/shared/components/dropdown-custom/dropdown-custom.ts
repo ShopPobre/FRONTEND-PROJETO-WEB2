@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-dropdown-custom',
@@ -9,9 +10,19 @@ import { Component } from '@angular/core';
 export class DropdownCustom {
 
   isDropdownOpen = false;
+  @Output() accountClick = new EventEmitter<void>();
+  @Output() addressClick = new EventEmitter<void>();
+
+  constructor(
+    private readonly userService: UserService
+  ) {}
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  logout() {
+    this.userService.logout();
   }
 
 }

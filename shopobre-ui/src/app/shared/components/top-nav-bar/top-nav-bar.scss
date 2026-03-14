@@ -1,0 +1,15 @@
+.top-navbar {
+  height: 70px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-btn {
+  background: transparent;
+  border: none;
+  color: --btn-bg;
+  font-size: 1.5rem;
+  cursor: pointer;
+}

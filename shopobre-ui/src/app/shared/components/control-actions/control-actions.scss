@@ -1,0 +1,30 @@
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.search-container {
+  position: relative;
+  width: 320px;
+}
+
+.search-container input {
+  padding-left: 45px;
+  border-radius: 25px;
+  border: none;
+  background: #fff;
+  height: 48px;
+  width: 100%;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.search-container i {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}

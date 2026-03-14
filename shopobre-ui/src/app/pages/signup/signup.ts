@@ -5,6 +5,7 @@ import { SignupForm } from '../../shared/components/signup-form/signup-form';
 import { Router } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
 import Swal from 'sweetalert2';
+import { SwalService } from '../../core/services/swal.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,6 +25,7 @@ export class Signup {
   constructor(
     private readonly userService: UserService,
     private readonly router: Router,
+    private readonly swalService: SwalService
   ) {}
 
   navegar() {
@@ -33,33 +35,13 @@ export class Signup {
   signup() {
     this.userService.signup(this.userData()).subscribe({
       next: (response) => {
-        console.log('Login realizado', response);
-
-        Swal.fire({
-          toast: true,
-          position: 'bottom-end',
-          icon: 'success',
-          title: 'Registro realizado com sucesso!',
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
+        this.swalService.success('Registro realizado com sucesso!');
         this.router.navigate(['login']);
       },
 
       error: (err) => {
         const mensagemErro = err.error?.error || err.error?.message || 'Erro no servidor';
-
-        Swal.fire({
-          toast: true,
-          position: 'bottom-end',
-          icon: 'error',
-          title: mensagemErro,
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
+        this.swalService.error(mensagemErro);
       },
     });
   }

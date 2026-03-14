@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { LoginRequest } from '../../core/models/auth.model';
 import Swal from 'sweetalert2';
+import { SwalService } from '../../core/services/swal.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class Login {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly swalService: SwalService
   ) {}
 
   navegar() {
@@ -31,32 +33,20 @@ export class Login {
     this.authService.login(this.authData()).subscribe({
       next: (response: any) => {
         this.authService.setToken(response.accessToken);
+        const role = this.authService.getUserRole();
 
-        Swal.fire({
-          toast: true,
-          position: 'bottom-end',
-          icon: 'success',
-          title: 'Login realizado com sucesso!',
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
+        this.swalService.success('Login realizado com sucesso!');
 
-        this.router.navigate(['home']);
+        if (role === 'ADMIN') {
+          this.router.navigate(['admin/products']);
+        } else {
+          this.router.navigate(['home']);
+        }
       },
 
       error: (err) => {
         const mensagemErro = err.error?.error || err.error?.message || 'Erro no servidor';
-
-        Swal.fire({
-          toast: true,
-          position: 'bottom-end',
-          icon: 'error',
-          title:mensagemErro,
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
+        this.swalService.error(mensagemErro);
       },
     });
   }

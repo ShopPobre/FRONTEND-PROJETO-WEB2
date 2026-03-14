@@ -1,5 +1,10 @@
 @if (label()) {
-    <label class="form-label">{{ label() }}</label>
-  }
-  <input [type]="type()" class="form-control-custom" [placeholder]="placeholder()" />
-
+  <label class="form-label">{{ label() }}</label>
+}
+<input
+  [type]="type()"
+  class="form-control-custom"
+  [placeholder]="placeholder()"
+  [value]="value()"
+  (input)="valueChange.emit($any($event.target).value)"
+/>

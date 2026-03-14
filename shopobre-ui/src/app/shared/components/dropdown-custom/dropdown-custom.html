@@ -2,9 +2,9 @@
   <div class="user-icon-container" (click)="toggleDropdown()">
     <i class="far fa-user fa-lg"></i>
     <div class="dropdown-custom" [class.show]="isDropdownOpen">
-      <a href="#" class="sub-item">Edit profile</a>
-      <a href="#" class="sub-item">Edit address</a>
-      <a href="#" class="logout-item"> <i class="fas fa-sign-out-alt me-2"></i>Logout </a>
+      <a class="sub-item" (click)="accountClick.emit()">Edit profile</a>
+      <a class="sub-item" (click)="addressClick.emit()">Edit address</a>
+      <a class="logout-item" (click)="logout()"> <i class="fas fa-sign-out-alt me-2"></i>Logout </a>
     </div>
   </div>
 </div>

@@ -13,10 +13,13 @@
       <div class="user-nav d-flex align-items-center gap-4 fs-6">
         @if (isRegister()) {
           <button type="button" (click)="btnClick.emit()" class="btn-reset-style">
-            Olá,  <span class="text-second-color fw-bold">{{ text() }}</span>
+            Olá, <span class="text-second-color fw-bold">{{ text() }}</span>
           </button>
         } @else {
-          <app-dropdown-custom></app-dropdown-custom>
+          <app-dropdown-custom
+            (accountClick)="navegarAccount()"
+            (addressClick)="navegarAddress()"
+          ></app-dropdown-custom>
         }
         <div class="position-relative fs-5 cart-icon-color">
           <i class="fas fa-shopping-cart"></i>

@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-form-edit',
@@ -11,5 +11,7 @@ export class FormEdit {
   label = input<string | null>(null);
   type = input.required<string>();
   placeholder = input.required<string>();
+  value = input<string>('');
+  valueChange = output<string>();
 
 }

@@ -9,5 +9,6 @@ import { Component, EventEmitter, input, Output } from '@angular/core';
 export class Button {
 
   label = input.required<string>();
+  @Output() btnClick = new EventEmitter<void>();
 
 }

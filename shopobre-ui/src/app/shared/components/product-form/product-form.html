@@ -1,0 +1,51 @@
+<div class="edit-card">
+  <h2 class="card-title">{{ label() }}</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <app-form-edit
+        [type]="'text'"
+        [label]="'Name'"
+        [placeholder]="'Nome do produto'"
+        [value]="name()"
+        (valueChange)="name.set($event)"
+      ></app-form-edit>
+    </div>
+    <div class="col-md-6">
+      <app-form-edit
+        [type]="'text'"
+        [label]="'Description'"
+        [placeholder]="'Description'"
+        [value]="description()"
+        (valueChange)="description.set($event)"
+      ></app-form-edit>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <app-form-edit
+        [type]="'text'"
+        [label]="'Category'"
+        [placeholder]="'categoria'"
+        [value]="categoryName()"
+        (valueChange)="categoryName.set($event)"
+      ></app-form-edit>
+    </div>
+    <div class="col-md-6">
+      <app-form-edit
+        [type]="'text'"
+        [label]="'price'"
+        [placeholder]="'R$ 0,00'"
+        [value]="price()"
+        (valueChange)="price.set($event)"
+      ></app-form-edit>
+    </div>
+  </div>
+
+  <app-actions-footer
+    [label]="label()"
+    [cancelRoute]="navegar()"
+    (saveChanges)="saveProduct()"
+    [disabled]="!isDirty()"
+  ></app-actions-footer>
+</div>

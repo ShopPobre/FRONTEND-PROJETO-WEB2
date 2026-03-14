@@ -1,0 +1,8 @@
+<app-side-bar></app-side-bar>
+
+<main class="main-container">
+  <app-top-nav-bar (btnClick)="navegarProfile()"></app-top-nav-bar>
+  <app-control-actions [label]="'Add Product'" (btnClick)="navegar()"></app-control-actions>
+
+  <app-product-list (editClick)="navegarEdit($event)"></app-product-list>
+</main>
