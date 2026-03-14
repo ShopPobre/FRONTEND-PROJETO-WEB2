@@ -1,4 +1,4 @@
 <div class="actions-footer">
-  <button class="btn-cancel" (click)="btnClick.emit()">Cancel</button>
-  <button class="btn-save" (click)="btnClick.emit()"> {{ label() }}</button>
+  <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+  <button class="btn-save" [disabled]="disabled()" (click)="!disabled() && saveChanges.emit()"> {{ label() }}</button>
 </div>

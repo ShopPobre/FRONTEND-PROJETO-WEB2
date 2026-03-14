@@ -3,16 +3,13 @@
     <h4 class="card-title text-second-color">Edit Your Profile</h4>
 
     <div class="row">
-      <div class="col-md-6">
-        <app-form-edit [type]="'text'" [label]="'First Name'" [placeholder]="'Md'"></app-form-edit>
-      </div>
-      <div class="col-md-6">
-        <app-form-edit
-          [type]="'text'"
-          [label]="'Last Name'"
-          [placeholder]="'Rimel'"
-        ></app-form-edit>
-      </div>
+      <app-form-edit
+        [type]="'text'"
+        [label]="'First Name'"
+        [placeholder]="'Md'"
+        [value]="name()"
+        (valueChange)="name.set($event)"
+      ></app-form-edit>
     </div>
 
     <div class="row">
@@ -21,6 +18,8 @@
           [type]="'email'"
           [label]="'Email'"
           [placeholder]="'rimel1111@gmail.com'"
+          [value]="email()"
+          (valueChange)="email.set($event)"
         ></app-form-edit>
       </div>
       <div class="col-md-6">
@@ -28,6 +27,8 @@
           [type]="'text'"
           [label]="'Phone'"
           [placeholder]="'1234-5678'"
+          [value]="telefone()"
+          (valueChange)="telefone.set($event)"
         ></app-form-edit>
       </div>
     </div>
@@ -38,12 +39,28 @@
           [type]="'password'"
           [label]="'Password Changes'"
           [placeholder]="'Current Password'"
+          [value]="currentPassword()"
+          (valueChange)="currentPassword.set($event)"
         ></app-form-edit>
-        <app-form-edit [type]="'password'" [placeholder]="'New Password'"></app-form-edit>
-        <app-form-edit [type]="'password'" [placeholder]="'Confirm New Password'"></app-form-edit>
+        <app-form-edit
+          [type]="'password'"
+          [placeholder]="'New Password'"
+          [value]="newPassword()"
+          (valueChange)="newPassword.set($event)"
+        ></app-form-edit>
+        <app-form-edit
+          [type]="'password'"
+          [placeholder]="'Confirm New Password'"
+          [value]="confirmPassword()"
+          (valueChange)="confirmPassword.set($event)"
+        ></app-form-edit>
       </div>
     </div>
-
-    <app-actions-footer [label]="'Save Changes'"></app-actions-footer>
+    <app-actions-footer
+      [label]="'Save Changes'"
+      [cancelRoute]="navegar()"
+      (saveChanges)="saveChanges()"
+      [disabled]="!isDirty()"
+    ></app-actions-footer>
   </div>
 </div>

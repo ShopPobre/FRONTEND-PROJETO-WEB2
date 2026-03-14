@@ -7,9 +7,10 @@ import { Product } from './pages/admin-mode/product/product';
 import { AddProduct } from './pages/admin-mode/add-product/add-product';
 import { Home } from './pages/home/home';
 import { authGuard } from './core/guards/auth-guard';
+import { AccountAdmin } from './pages/admin-mode/account-admin/account-admin';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: Login },
   { path: 'signup', component: Signup },
 
@@ -18,16 +19,14 @@ export const routes: Routes = [
 
   // ADMIN
   {
-    path: 'products',
-    component: Product,
+    path: 'admin',
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
-  },
-  {
-    path: 'products/add',
-    component: AddProduct,
-    canActivate: [authGuard],
-    data: { roles: ['ADMIN'] },
+    children: [
+      { path: 'products', component: Product },
+      { path: 'products/add', component: AddProduct },
+      { path: 'account', component: AccountAdmin },
+    ],
   },
 
   { path: 'home', component: Home },

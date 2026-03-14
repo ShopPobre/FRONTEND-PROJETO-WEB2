@@ -1,18 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { ProductForm } from '../../../shared/components/product-form/product-form';
 import { SideBar } from '../../../shared/components/side-bar/side-bar';
+import { AccountForm } from '../../../shared/components/account-form/account-form';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-product',
-  imports: [ProductForm, SideBar],
-  templateUrl: './add-product.html',
-  styleUrl: './add-product.scss',
+  selector: 'app-account-admin',
+  imports: [SideBar, AccountForm],
+  templateUrl: './account-admin.html',
+  styleUrl: './account-admin.scss',
 })
-export class AddProduct {
+export class AccountAdmin {
 
   private router = inject(Router);
-
 
   navegar() {
     this.router.navigate(['admin/products']);

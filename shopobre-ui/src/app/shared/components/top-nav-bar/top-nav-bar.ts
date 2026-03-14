@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-top-nav-bar',
@@ -8,9 +8,7 @@ import { Component } from '@angular/core';
 })
 export class TopNavBar {
 
-  isDropdownOpen = false;
+  @Output() btnClick = new EventEmitter<void>(); 
 
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
+ 
 }

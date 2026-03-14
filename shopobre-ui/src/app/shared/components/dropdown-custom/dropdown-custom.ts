@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -10,6 +10,8 @@ import { UserService } from '../../../core/services/user.service';
 export class DropdownCustom {
 
   isDropdownOpen = false;
+  @Output() accountClick = new EventEmitter<void>();
+  @Output() addressClick = new EventEmitter<void>();
 
   constructor(
     private readonly userService: UserService

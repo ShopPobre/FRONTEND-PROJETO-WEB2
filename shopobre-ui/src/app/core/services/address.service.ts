@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class AddressService {
   constructor(
     private http: HttpClient,
     private api: ApiService,
@@ -20,18 +19,9 @@ export class UserService {
     return `${this.api.getBaseUrl()}/users`;
   }
 
-  signup(userData: User) {
-    return this.http.post(this.url, userData);
-  }
-
-  logout(): void {
-    sessionStorage.removeItem('access_token');
-    this.router.navigate(['login']);
-  }
-
-  getUser() {
+  getAddress() {
     const userID = this.authService.getUserId();
-    const userGETURL = `${this.url}/${userID}`;
+    const userGETURL = `${this.url}/${userID}/addresses`;
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
@@ -40,15 +30,25 @@ export class UserService {
     return this.http.get(userGETURL, { headers });
   }
 
-  updateUser(userData: any) {
+  createAddress(addressData: any){
     const userID = this.authService.getUserId();
-    const userGETURL = `${this.url}/${userID}`;
+    const userGETURL = `${this.url}/${userID}/addresses`;
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
 
-    return this.http.put(userGETURL, userData, { headers });
+    return this.http.post(userGETURL, addressData, { headers });
+  }
 
+  updateAddress(addressID: string, addressData: any){
+    const userID = this.authService.getUserId();
+    const userGETURL = `${this.url}/${userID}/addresses/${addressID}`;
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authService.getToken()}`,
+    });
+    
+    return this.http.put(userGETURL, addressData, { headers });
   }
 }

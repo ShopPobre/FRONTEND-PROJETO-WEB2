@@ -8,31 +8,63 @@
           [type]="'text'"
           [label]="'Street'"
           [placeholder]="'Rua exemplo'"
+          [value]="rua()"
+          (valueChange)="rua.set($event)"
         ></app-form-edit>
       </div>
       <div class="col-md-6">
-        <app-form-edit [type]="'number'" [label]="'Number'" [placeholder]="'000'"></app-form-edit>
+        <app-form-edit
+          [type]="'number'"
+          [label]="'Number'"
+          [placeholder]="'000'"
+          [value]="numero().toString()"
+          (valueChange)="numero.set(+$event)"
+        ></app-form-edit>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
-        <app-form-edit [type]="'text'" [label]="'Cep'" [placeholder]="'123456-789'"></app-form-edit>
+        <app-form-edit
+          [type]="'text'"
+          [label]="'Cep'"
+          [placeholder]="'123456-789'"
+          [value]="cep()"
+          (valueChange)="cep.set($event)"
+        ></app-form-edit>
       </div>
       <div class="col-md-6">
-        <app-form-edit [type]="'text'" [label]="'City'" [placeholder]="'cidade'"></app-form-edit>
+        <app-form-edit
+          [type]="'text'"
+          [label]="'City'"
+          [placeholder]="'cidade'"
+          [value]="cidade()"
+          (valueChange)="cidade.set($event)"
+        ></app-form-edit>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
-        <app-form-edit [type]="'text'" [label]="'State'" [placeholder]="'Estado'"></app-form-edit>
+        <app-form-edit
+          [type]="'text'"
+          [label]="'State'"
+          [placeholder]="'Estado'"
+          [value]="estado()"
+          (valueChange)="estado.set($event)"
+        ></app-form-edit>
       </div>
       <div class="col-md-6">
-        <app-form-edit [type]="'text'" [label]="'Type'" [placeholder]="'CASA or TRABALHO'"></app-form-edit>
+        <app-form-edit
+          [type]="'text'"
+          [label]="'Type'"
+          [placeholder]="'CASA or TRABALHO'"
+          [value]="tipo()"
+          (valueChange)="tipo.set($event)"
+        ></app-form-edit>
       </div>
     </div>
 
-    <app-actions-footer [label]="'Save Changes'"></app-actions-footer>
+    <app-actions-footer [label]="saveLabel()" (saveChanges)="saveAddress()" [disabled]="!isDirty()"></app-actions-footer>
   </div>
 </div>
