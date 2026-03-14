@@ -1,4 +1,4 @@
-import { Component, computed, input, Input } from '@angular/core';
+import { Component, computed, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { ProductResponseDTO } from '../../../core/models/product.model';
 
 @Component({
@@ -10,6 +10,8 @@ import { ProductResponseDTO } from '../../../core/models/product.model';
 export class ProductListCard {
 
   product = input.required<ProductResponseDTO>();
+  editClick = output<number>();
+  deleteClick = output<number>();
 
   readonly DEFAULT_IMAGE = 'https://placehold.co/100x100?text=No+Image';
 

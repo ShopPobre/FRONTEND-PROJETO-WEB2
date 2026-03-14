@@ -4,5 +4,5 @@
   <app-top-nav-bar (btnClick)="navegarProfile()"></app-top-nav-bar>
   <app-control-actions [label]="'Add Product'" (btnClick)="navegar()"></app-control-actions>
 
-  <app-product-list></app-product-list>
+  <app-product-list (editClick)="navegarEdit($event)"></app-product-list>
 </main>

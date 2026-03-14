@@ -8,6 +8,10 @@
   </div>
 } @else {
   @for (product of products(); track product.id) {
-    <app-product-list-card [product]="product" />
+    <app-product-list-card
+      [product]="product"
+      (editClick)="editClick.emit($event)"
+      (deleteClick)="deleteProduct($event)"
+    />
   }
 }
