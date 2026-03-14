@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ProductListCard } from '../product-list-card/product-list-card';
-import { ProductDetailView } from '../../../core/models/product.model';
+import { ProductResponseDTO } from '../../../core/models/product.model';
 import { CommonModule } from '@angular/common';
 import { TableHeader } from '../table-header/table-header';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,25 +11,31 @@ import { TableHeader } from '../table-header/table-header';
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
 })
-export class ProductList {
-  products: ProductDetailView[] = [
-    {
-      id: 1,
-      name: 'Product 1',
-      createdAt: 'Mon, Aug 21, 2025',
-      isActive: true,
-      price: 50,
-      categoryId: 0,
-      images: [],
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      createdAt: 'Mon, Aug 21, 2025',
-      isActive: false,
-      price: 50,
-      categoryId: 0,
-      images: [],
-    },
-  ];
+export class ProductList implements OnInit {
+
+  products = signal<ProductResponseDTO[]>([]);
+  isLoading = signal(false);
+
+
+  constructor(
+    private readonly productService: ProductService
+  ){}
+
+
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  private loadProducts() {
+    this.productService.getProducts().subscribe({
+      next: (response: any) => {
+        this.products.set(response.data ?? response); 
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error(err);
+        this.isLoading.set(false);
+      },
+    });
+  }
 }

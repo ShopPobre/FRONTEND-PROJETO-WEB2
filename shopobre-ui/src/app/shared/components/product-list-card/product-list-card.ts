@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { ProductDetailView } from '../../../core/models/product.model';
+import { Component, computed, input, Input } from '@angular/core';
+import { ProductResponseDTO } from '../../../core/models/product.model';
 
 @Component({
   selector: 'app-product-list-card',
@@ -9,6 +9,15 @@ import { ProductDetailView } from '../../../core/models/product.model';
 })
 export class ProductListCard {
 
-  @Input() product!: ProductDetailView;
+  product = input.required<ProductResponseDTO>();
+
+  readonly DEFAULT_IMAGE = 'https://placehold.co/100x100?text=No+Image';
+
+  productImage = computed(() => {
+    const p = this.product();
+    return p.mainImage?.urlPath       
+      ?? p.images?.[0]?.urlPath       
+      ?? this.DEFAULT_IMAGE;          
+  });
 
 }
