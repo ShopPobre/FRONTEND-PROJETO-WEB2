@@ -53,7 +53,6 @@ export class ProductList implements OnInit {
         this.productService.deleteProduct(String(productId)).subscribe({
           next: () => {
             this.swalService.success('Produto excluído!');
-            // remove da lista sem precisar recarregar
             this.products.update((list) => list.filter((p) => p.id !== productId));
           },
           error: (err) => {

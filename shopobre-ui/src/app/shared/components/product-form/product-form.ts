@@ -7,7 +7,6 @@ import { SwalService } from '../../../core/services/swal.service';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { ProductResponseDTO } from '../../../core/models/product.model';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-form',
@@ -36,17 +35,14 @@ export class ProductForm implements OnInit {
   isDirty = computed(() => {
     const o = this.original();
 
-    // modo criação — habilita quando campos obrigatórios preenchidos
     if (!o) {
       return this.name() !== '' && this.price() !== '' && this.categoryName() !== '';
     }
 
-    // modo edição — habilita se algo mudou
     return (
       this.name() !== o.name ||
       this.description() !== (o.description ?? '') ||
       this.price() !== String(o.price)
-      // categoryName não comparamos com o original pois vem só o id do back
     );
   });
 
@@ -66,7 +62,6 @@ export class ProductForm implements OnInit {
         this.price.set(String(product.price));
         this.original.set({ ...product });
 
-        // busca o nome da categoria pelo id
         this.categoryService.getCategories().subscribe((categories) => {
           const category = categories.find((c) => c.id === product.categoryId);
           this.categoryName.set(category?.name ?? '');
