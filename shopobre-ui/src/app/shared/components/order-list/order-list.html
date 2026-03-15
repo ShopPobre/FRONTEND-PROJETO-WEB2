@@ -1,0 +1,8 @@
+<app-table-header [label]="'Created At'" [title]="'Order id'"></app-table-header>
+@if (isLoading()) {
+  <p>Carregando...</p>
+} @else if (orders().length === 0) {
+  <div class="d-flex align-items-center justify-content-center">
+    <p>Nenhum pedido encontrado.</p>
+  </div>
+}

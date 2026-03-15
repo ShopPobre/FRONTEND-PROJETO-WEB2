@@ -11,6 +11,8 @@ import { ProductDetail } from './pages/product-detail/product-detail';
 import { authGuard } from './core/guards/auth-guard';
 import { AccountAdmin } from './pages/admin-mode/account-admin/account-admin';
 import { EditProduct } from './pages/admin-mode/edit-product/edit-product';
+import { Inventory } from './pages/admin-mode/inventory/inventory';
+import { Order } from './pages/admin-mode/order/order';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,6 +32,8 @@ export const routes: Routes = [
       { path: 'products/add', component: AddProduct },
       { path: 'products/edit/:id', component: EditProduct },
       { path: 'account', component: AccountAdmin },
+      { path: 'inventory', component: Inventory },
+      { path: 'orders', component: Order },
     ],
   },
 

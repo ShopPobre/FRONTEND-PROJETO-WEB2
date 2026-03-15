@@ -18,10 +18,6 @@ export class Product {
     this.router.navigate(['admin/products/add']);
   }
 
-  navegarProfile() {
-    this.router.navigate(['admin/account']);
-  }
-
   navegarEdit(productId: number) {
     this.router.navigate(['admin/products/edit', productId]);
   }
