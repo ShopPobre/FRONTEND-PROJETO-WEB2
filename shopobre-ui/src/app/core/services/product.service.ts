@@ -1,23 +1,21 @@
 import { Observable, map, catchError, of } from 'rxjs';
 import { ProductResponseDTO, ProductDetailView, ProductImageDTO } from '../models/product.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
+  private http = inject(HttpClient);
+  private api = inject(ApiService);
+  private authService = inject(AuthService);
+
   private get url() {
     return `${this.api.getBaseUrl()}/products`;
   }
-
-  constructor(
-    private http: HttpClient,
-    private api: ApiService
-  ) {}
 
   getById(id: number): Observable<ProductDetailView | null> {
     return this.http.get<ProductResponseDTO>(`${this.url}/${id}`).pipe(
@@ -68,57 +66,31 @@ export class ProductService {
       `${base}?text=Visão+4`,
       `${base}?text=Visão+5`,
     ];
-  constructor(
-    private http: HttpClient,
-    private api: ApiService,
-    private router: Router,
-    private authService: AuthService,
-  ) {}
+  }
 
-  private get url() {
-    return `${this.api.getBaseUrl()}/products`;
+  private get authHeaders() {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.authService.getToken()}`,
+    });
   }
 
   getProducts() {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
-    return this.http.get(this.url, { headers });
+    return this.http.get(this.url, { headers: this.authHeaders });
   }
 
-  createProduct(productData: any) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
-    return this.http.post(this.url, productData, { headers });
+  createProduct(productData: unknown) {
+    return this.http.post(this.url, productData, { headers: this.authHeaders });
   }
 
   getProductById(productID: string) {
-    const urlGET = `${this.url}/${productID}`;
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-    return this.http.get(urlGET, { headers });
+    return this.http.get(`${this.url}/${productID}`, { headers: this.authHeaders });
   }
 
-  updateProduct(productID: string, payload: any) {
-    const urlGET = `${this.url}/${productID}`;
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
-    return this.http.put(urlGET, payload, { headers });
+  updateProduct(productID: string, payload: unknown) {
+    return this.http.put(`${this.url}/${productID}`, payload, { headers: this.authHeaders });
   }
 
   deleteProduct(productID: string) {
-    const urlGET = `${this.url}/${productID}`;
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
-    return this.http.delete(urlGET, { headers });
-
+    return this.http.delete(`${this.url}/${productID}`, { headers: this.authHeaders });
   }
 }

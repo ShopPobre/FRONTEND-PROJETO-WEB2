@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, signal, computed, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
 import { Breadcrumb } from '../../shared/components/breadcrumb/breadcrumb';
 import { ProductService } from '../../core/services/product.service';
 import { CategoryService } from '../../core/services/category.service';
+import { CartService } from '../../core/services/cart.service';
 import { ProductDetailView } from '../../core/models/product.model';
 import { BreadcrumbItem } from '../../shared/components/breadcrumb/breadcrumb';
 
@@ -23,8 +24,10 @@ const MAX_THUMBNAILS = 4;
 })
 export class ProductDetail implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
+  private cartService = inject(CartService);
 
   product = signal<ProductDetailView | null>(null);
   categoryName = signal<string>('');
@@ -121,10 +124,28 @@ export class ProductDetail implements OnInit, OnDestroy {
   }
 
   buyNow(): void {
-    // TODO: navegar para checkout ou criar pedido
+    const p = this.product();
+    if (!p) return;
+    this.cartService.add({
+      productId: p.id,
+      name: p.name,
+      price: p.price,
+      imageUrl: this.mainImage(),
+      quantity: this.quantity(),
+    });
+    this.router.navigate(['/cart']);
   }
 
   addToCart(): void {
-    // TODO: adicionar ao carrinho
+    const p = this.product();
+    if (!p) return;
+    this.cartService.add({
+      productId: p.id,
+      name: p.name,
+      price: p.price,
+      imageUrl: this.mainImage(),
+      quantity: this.quantity(),
+    });
+    this.router.navigate(['/cart']);
   }
 }

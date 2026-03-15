@@ -2,11 +2,12 @@ import { Component, EventEmitter, inject, input, Input, Output, signal } from '@
 import { Button } from '../button/button';
 import { SearchInput } from '../search-input/search-input';
 import { DropdownCustom } from '../dropdown-custom/dropdown-custom';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-header',
-  imports: [Button, SearchInput, DropdownCustom],
+  imports: [Button, SearchInput, DropdownCustom, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -20,6 +21,7 @@ export class Header {
 
   @Output() btnClick = new EventEmitter<void>();
 
+  cartCount = inject(CartService).count;
 
   navegarAccount(){
     this.router.navigate(['account'])

@@ -7,6 +7,7 @@ import { SwalService } from '../../../core/services/swal.service';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { ProductResponseDTO } from '../../../core/models/product.model';
+import { Category } from '../../../core/models/category.model';
 
 @Component({
   selector: 'app-product-form',
@@ -62,12 +63,12 @@ export class ProductForm implements OnInit {
         this.price.set(String(product.price));
         this.original.set({ ...product });
 
-        this.categoryService.getCategories().subscribe((categories) => {
-          const category = categories.find((c) => c.id === product.categoryId);
+        this.categoryService.getCategories().subscribe((categories: Category[]) => {
+          const category = categories.find((c: Category) => c.id === product.categoryId);
           this.categoryName.set(category?.name ?? '');
         });
       },
-      (err: any) => console.error(err),
+      (err: unknown) => console.error(err),
     );
   }
 
@@ -75,7 +76,7 @@ export class ProductForm implements OnInit {
     this.categoryService
       .findOrCreate(this.categoryName())
       .pipe(
-        switchMap((category) => {
+        switchMap((category: Category) => {
           const payload = {
             name: this.name(),
             description: this.description(),
@@ -93,7 +94,7 @@ export class ProductForm implements OnInit {
           this.swalService.success(this.productId() ? 'Produto atualizado!' : 'Produto criado!');
           this.router.navigate([this.navegar()]);
         },
-        error: (err) => {
+        error: (err: { error?: { error?: string; message?: string } }) => {
           const mensagem = err.error?.error || err.error?.message || 'Erro ao salvar produto';
           this.swalService.error(mensagem);
         },

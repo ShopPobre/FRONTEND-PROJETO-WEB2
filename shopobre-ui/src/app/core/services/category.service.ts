@@ -15,44 +15,37 @@ export class CategoryService {
     return `${this.api.getBaseUrl()}/categories`;
   }
 
-  constructor(
-    private http: HttpClient,
-    private api: ApiService
-  ) {}
-
-  getById(id: number): Observable<Category | null> {
-    return this.http.get<Category>(`${this.url}/${id}`).pipe(
-      catchError(() => of(null))
-    );
-  }
-}
   private get headers() {
     return new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
   }
 
-  getCategories() {
-    return this.http.get<CategoryResponse>(this.url, { headers: this.headers }).pipe(
-      map((response) => response.data)
+  getById(id: number): Observable<Category | null> {
+    return this.http.get<Category>(`${this.url}/${id}`).pipe(
+      catchError(() => of(null))
     );
   }
 
-  createCategory(name: string) {
+  getCategories(): Observable<Category[]> {
+    return this.http.get<CategoryResponse>(this.url, { headers: this.headers }).pipe(
+      map((response) => response.data ?? [])
+    );
+  }
+
+  createCategory(name: string): Observable<Category> {
     return this.http.post<Category>(this.url, { name }, { headers: this.headers });
   }
 
-  findOrCreate(name: string) {
+  findOrCreate(name: string): Observable<Category> {
     return this.getCategories().pipe(
       switchMap((categories) => {
         const found = categories.find(
           (c) => c.name.toLowerCase() === name.toLowerCase()
         );
-
         if (found) {
-          return of(found); 
+          return of(found);
         }
-
         return this.createCategory(name);
       })
     );

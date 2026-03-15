@@ -6,6 +6,8 @@ import { Address } from './pages/address/address';
 import { Product } from './pages/admin-mode/product/product';
 import { AddProduct } from './pages/admin-mode/add-product/add-product';
 import { Home } from './pages/home/home';
+import { Cart } from './pages/cart/cart';
+import { ProductDetail } from './pages/product-detail/product-detail';
 import { authGuard } from './core/guards/auth-guard';
 import { AccountAdmin } from './pages/admin-mode/account-admin/account-admin';
 import { EditProduct } from './pages/admin-mode/edit-product/edit-product';
@@ -32,4 +34,6 @@ export const routes: Routes = [
   },
 
   { path: 'home', component: Home },
+  { path: 'cart', component: Cart },
+  { path: 'product/:id', component: ProductDetail },
 ];
