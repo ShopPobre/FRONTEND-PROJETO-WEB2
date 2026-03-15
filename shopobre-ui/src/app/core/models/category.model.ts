@@ -6,3 +6,14 @@ export interface Category {
   createdAt?: string | null;
   updatedAt?: string | null;
 }
+
+
+export interface CategoryResponse {
+  data: Category[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}

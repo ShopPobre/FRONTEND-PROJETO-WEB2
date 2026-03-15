@@ -1,22 +1,30 @@
 <main>
-    <nav class="navbar navbar-expand-lg navbar-light header-bg">
-        <div class="container-fluid">
-            <div class="brand-logo">
-                <span class="shop"><img src="assets/images/logo.svg" alt=""></span>
-            </div>
+  <nav class="navbar navbar-expand-lg navbar-light header-bg">
+    <div class="container-fluid">
+      <div class="brand-logo">
+        <span class="shop"><img src="assets/images/logo.svg" alt="" /></span>
+      </div>
 
-            <div class="d-flex w-50 rounded-4  justify-content-between search-bg align-items-center">
-                <app-search-input [placeholder]="placeholder()"></app-search-input>
-                <app-button [label]="labelButton()"></app-button>
-            </div>
+      <div class="d-flex w-50 rounded-4 justify-content-between search-bg align-items-center">
+        <app-search-input [placeholder]="placeholder()"></app-search-input>
+        <app-button [label]="labelButton()"></app-button>
+      </div>
 
-            <div class="user-nav d-flex align-items-center fs-6">
-                <span>Olá, <span class="text-second-color fw-bold">{{ text() }}</span></span>
-                <div class="position-relative fs-5 cart-icon-color">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-            </div>
-
+      <div class="user-nav d-flex align-items-center gap-4 fs-6">
+        @if (isRegister()) {
+          <button type="button" (click)="btnClick.emit()" class="btn-reset-style">
+            Olá, <span class="text-second-color fw-bold">{{ text() }}</span>
+          </button>
+        } @else {
+          <app-dropdown-custom
+            (accountClick)="navegarAccount()"
+            (addressClick)="navegarAddress()"
+          ></app-dropdown-custom>
+        }
+        <div class="position-relative fs-5 cart-icon-color">
+          <i class="fas fa-shopping-cart"></i>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 </main>

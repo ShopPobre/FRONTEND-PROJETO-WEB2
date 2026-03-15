@@ -6,7 +6,11 @@
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   display: flex;
+  min-height: 600px; 
+  align-items: stretch;
+  margin-top: 100px;
 }
+
 
 .btn-registration {
   background-color: #310a31;

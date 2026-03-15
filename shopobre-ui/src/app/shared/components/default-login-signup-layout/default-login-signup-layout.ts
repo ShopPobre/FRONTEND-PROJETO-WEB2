@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Header } from '../header/header';
 
 @Component({
@@ -13,4 +13,8 @@ export class DefaultLoginSignupLayout {
   label = input.required<string>();
   welcomeText = input.required<string>();
   buttonText = input.required<string>();
+
+  @Output() btnClick = new EventEmitter<void>();
+  @Output() action = new EventEmitter<void>();
+
 }
