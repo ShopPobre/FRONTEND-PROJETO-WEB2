@@ -21,9 +21,12 @@
             (addressClick)="navegarAddress()"
           ></app-dropdown-custom>
         }
-        <div class="position-relative fs-5 cart-icon-color">
+        <a routerLink="/cart" class="position-relative fs-5 cart-icon-color cart-link">
           <i class="fas fa-shopping-cart"></i>
-        </div>
+          @if (cartCount() > 0) {
+            <span class="cart-badge">{{ cartCount() }}</span>
+          }
+        </a>
       </div>
     </div>
   </nav>

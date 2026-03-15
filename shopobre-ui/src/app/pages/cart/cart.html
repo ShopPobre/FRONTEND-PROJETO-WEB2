@@ -1,0 +1,103 @@
+<div class="cart-page">
+  <app-header [text]="'Visitante'"></app-header>
+
+  <div class="container cart-container">
+    <app-breadcrumb [items]="breadcrumbItems" />
+
+    <div class="cart-list">
+      <ul class="cart-table-header">
+        <li>Produto</li>
+        <li>Preço</li>
+        <li>Quantidade</li>
+        <li>Subtotal</li>
+      </ul>
+
+      <div class="cart-rows">
+        @for (item of items(); track item.productId) {
+          <div
+            class="cart-row"
+            (mouseenter)="rowHoverId.set(item.productId)"
+            (mouseleave)="rowHoverId.set(null)"
+          >
+            <div class="cart-cell product-cell">
+              <div class="product-image-wrap">
+                @if (rowHoverId() === item.productId || pendingRemove()?.productId === item.productId) {
+                  <button
+                    type="button"
+                    class="cart-delete-btn"
+                    aria-label="Excluir produto"
+                    (click)="onDeleteClick(item)"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                }
+                <img [src]="item.imageUrl" [alt]="item.name" class="product-thumb" />
+              </div>
+              <span class="product-name">{{ item.name }}</span>
+            </div>
+            <div class="cart-cell price-cell">{{ item.price | currency : 'BRL' : 'symbol' : '1.0-0' }}</div>
+            <div class="cart-cell quantity-cell">
+              <div class="quantity-selector">
+                <span class="qty-value">{{ item.quantity | number : '2.0-0' }}</span>
+                <div class="qty-arrows">
+                  <button
+                    type="button"
+                    class="qty-btn qty-up"
+                    (click)="onQuantityChange(item, item.quantity + 1)"
+                    aria-label="Aumentar"
+                  ><i class="fas fa-chevron-up"></i></button>
+                  <button
+                    type="button"
+                    class="qty-btn qty-down"
+                    (click)="onQuantityChange(item, item.quantity - 1)"
+                    aria-label="Diminuir"
+                  ><i class="fas fa-chevron-down"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="cart-cell subtotal-cell">{{ getSubtotal(item) | currency : 'BRL' : 'symbol' : '1.0-0' }}</div>
+          </div>
+        } @empty {
+          <p class="cart-empty-message">Não existem produtos no carrinho.</p>
+        }
+      </div>
+    </div>
+
+    <div class="cart-footer">
+      <a routerLink="/home" class="btn-return">Retornar à loja</a>
+      <div class="cart-total-box">
+        <h2 class="cart-total-title">Total do carrinho</h2>
+        <div class="cart-total-row">
+          <span>Subtotal:</span>
+          <span>{{ subtotal() | currency : 'BRL' : 'symbol' : '1.0-0' }}</span>
+        </div>
+        <div class="cart-total-divider"></div>
+        <div class="cart-total-row">
+          <span>Frete:</span>
+          <span>Grátis</span>
+        </div>
+        <div class="cart-total-divider"></div>
+        <div class="cart-total-row cart-total-final">
+          <span>Total:</span>
+          <span>{{ total() | currency : 'BRL' : 'symbol' : '1.0-0' }}</span>
+        </div>
+        <button type="button" class="btn-checkout" (click)="proceedToCheckout()">
+          Realizar o checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (pendingRemove(); as p) {
+    <div class="cart-modal-backdrop" (click)="cancelRemove()" role="button" tabindex="0" (keydown.escape)="cancelRemove()">
+      <div class="cart-modal" (click)="$event.stopPropagation()">
+        <p class="cart-modal-title">Tem certeza?</p>
+        <p class="cart-modal-text">Deseja remover este item do carrinho?</p>
+        <div class="cart-modal-actions">
+          <button type="button" class="cart-modal-btn cancel" (click)="cancelRemove()">Não</button>
+          <button type="button" class="cart-modal-btn confirm" (click)="doRemove()">Sim</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
