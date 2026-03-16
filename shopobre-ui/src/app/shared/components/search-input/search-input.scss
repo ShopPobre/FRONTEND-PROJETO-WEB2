@@ -1,4 +1,16 @@
+.input-wrapper {
+  width: 100%;
+}
+
 .search-bar {
-    padding: 10px 20px;
-    outline: none;
+  padding: 10px 16px;
+  outline: none;
+  border-radius: 999px;
+  background-color: #e5e7eb;
+  border: 1px solid transparent;
+}
+
+.search-bar:focus {
+  border-color: #310a31;
+  box-shadow: 0 0 0 1px rgba(49, 10, 49, 0.35);
 }

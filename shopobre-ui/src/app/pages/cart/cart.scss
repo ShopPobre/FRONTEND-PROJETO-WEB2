@@ -8,10 +8,13 @@ $btn-checkout-height: 56px;
 .cart-page {
   min-height: 100vh;
   background: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .cart-container {
-  padding-top: 0.5rem;
+  flex: 1;
+  padding-top: 7.8rem;
   padding-bottom: 3rem;
 }
 

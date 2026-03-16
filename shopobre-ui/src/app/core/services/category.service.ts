@@ -33,6 +33,13 @@ export class CategoryService {
     );
   }
 
+  getCategoriesPublic(): Observable<Category[]> {
+    return this.http.get<CategoryResponse>(this.url).pipe(
+      map((response) => response.data ?? []),
+      catchError(() => of([] as Category[]))
+    );
+  }
+
   createCategory(name: string): Observable<Category> {
     return this.http.post<Category>(this.url, { name }, { headers: this.headers });
   }

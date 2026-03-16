@@ -6,10 +6,13 @@ $gap-main-thumbs: 30px;
 .product-detail-page {
   min-height: 100vh;
   background: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-detail-container {
-  padding-top: 1rem;
+  flex: 1;
+  padding-top: 7.8rem;
   padding-bottom: 3rem;
 }
 

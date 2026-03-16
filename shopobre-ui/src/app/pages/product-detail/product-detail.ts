@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, signal, computed, inject } from '@angular
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
+import { Footer } from '../../shared/components/footer/footer';
 import { Breadcrumb } from '../../shared/components/breadcrumb/breadcrumb';
 import { ProductService } from '../../core/services/product.service';
 import { CategoryService } from '../../core/services/category.service';
@@ -18,7 +19,7 @@ const MAX_THUMBNAILS = 4;
 
 @Component({
   selector: 'app-product-detail',
-  imports: [Header, Breadcrumb, CurrencyPipe],
+  imports: [Header, Footer, Breadcrumb, CurrencyPipe],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
 })

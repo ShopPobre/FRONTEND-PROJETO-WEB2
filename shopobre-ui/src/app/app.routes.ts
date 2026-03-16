@@ -11,6 +11,8 @@ import { ProductDetail } from './pages/product-detail/product-detail';
 import { authGuard } from './core/guards/auth-guard';
 import { AccountAdmin } from './pages/admin-mode/account-admin/account-admin';
 import { EditProduct } from './pages/admin-mode/edit-product/edit-product';
+import { CategoryPage } from './pages/category/category';
+import { SearchPage } from './pages/search/search';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -34,6 +36,8 @@ export const routes: Routes = [
   },
 
   { path: 'home', component: Home },
+  { path: 'search', component: SearchPage },
+  { path: 'category/:slug', component: CategoryPage },
   { path: 'cart', component: Cart },
   { path: 'product/:id', component: ProductDetail },
 ];

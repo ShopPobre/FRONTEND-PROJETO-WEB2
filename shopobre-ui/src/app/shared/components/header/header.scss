@@ -1,7 +1,58 @@
+.header-wrapper {
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+}
+
 nav {
-  padding: 10px 30px 20px 0;
-  margin-top: 10px;
-  border-bottom: 1px solid gray;
+  padding: 8px 30px 10px 30px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.4rem;
+}
+
+.brand-logo img {
+  height: 40px;
+  border-radius: 6px;
+}
+
+.header-divider {
+  width: 1px;
+  height: 28px;
+  background: #e5e7eb;
+}
+
+.search-area {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  padding-inline: 0;
+  background-color: transparent;
+  max-width: 600px;
+}
+
+.search-area app-search-input {
+  flex: 1;
+}
+
+.search-area__button {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+.user-nav {
+  margin-left: auto;
+  gap: 0.9rem; /* ~15px */
 }
 
 .cart-link {
@@ -30,4 +81,35 @@ nav {
   border-radius: 50%;
   background: var(--btn-bg, #310a31);
   color: var(--btn-color, #fff);
+}
+
+.category-strip {
+  background: #240721;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-inline: 3rem;
+
+  &__inner {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-block: 0.6rem;
+    scrollbar-width: thin;
+  }
+
+  &__link {
+    white-space: nowrap;
+    font-size: 0.92rem;
+    color: #e5e7eb;
+    text-decoration: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
 }
