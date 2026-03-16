@@ -1,1 +1,130 @@
-<app-header></app-header>
+<div class="home-page">
+  <app-header></app-header>
+
+  <main class="home-content">
+    @if (isLoading()) {
+      <div class="home-loading">
+        <span>Carregando produtos...</span>
+      </div>
+    } @else {
+      @if (featuredProducts().length > 0) {
+        <section class="section-card section-card--featured">
+          <header class="section-card__header">
+            <h2>Destaques do Shopobre</h2>
+            <p>Top 5 mais desejados pelos nossos clientes.</p>
+          </header>
+
+          <div class="carousel-row">
+            <div class="carousel-row__scroller">
+              @for (product of featuredProducts(); track product.id) {
+                <article class="product-highlight">
+                  <div class="product-highlight__image-wrapper">
+                    <img
+                      [src]="getProductImage(product)"
+                      [alt]="product.name"
+                    />
+                  </div>
+                  <div class="product-highlight__info">
+                    <h3 class="product-highlight__title">
+                      {{ product.name }}
+                    </h3>
+                    @if (product.description) {
+                      <p class="product-highlight__description">
+                        {{ product.description }}
+                      </p>
+                    }
+                    <p class="product-highlight__price">
+                      R$ {{ product.price | number: '1.2-2' }}
+                    </p>
+                    <a
+                      class="product-highlight__cta"
+                      [routerLink]="['/product', product.id]"
+                    >
+                      Ver detalhes
+                    </a>
+                  </div>
+                </article>
+              }
+            </div>
+          </div>
+        </section>
+      }
+
+      @for (section of sections(); track section.id) {
+        @if (section.id === 'games' && getSectionProducts(section).length > 0) {
+          <section class="section-card section-card--wide">
+            <header class="section-card__header">
+              <h2>{{ section.title }}</h2>
+            </header>
+
+            <div class="carousel-row carousel-row--banner">
+              <div class="carousel-row__scroller">
+                @for (product of getSectionProducts(section); track product.id) {
+                  <article class="product-banner">
+                    <div class="product-banner__image-wrapper">
+                      <img
+                        [src]="getProductImage(product)"
+                        [alt]="product.name"
+                      />
+                    </div>
+                    <h3 class="product-banner__title">
+                      {{ product.name }}
+                    </h3>
+                    <p class="product-banner__price">
+                      R$ {{ product.price | number: '1.2-2' }}
+                    </p>
+                    <a
+                      class="product-banner__link"
+                      [routerLink]="['/product', product.id]"
+                    >
+                      Ver produto
+                    </a>
+                  </article>
+                }
+              </div>
+            </div>
+          </section>
+        }
+      }
+
+      @for (section of sections(); track section.id) {
+        @if (section.id !== 'games' && getSectionProducts(section).length > 0) {
+          <section class="section-card section-card--list">
+            <header class="section-card__header">
+              <h2>{{ section.title }}</h2>
+            </header>
+
+            <div class="carousel-row carousel-row--compact">
+              <div class="carousel-row__scroller">
+                @for (product of getSectionProducts(section); track product.id) {
+                  <article class="product-tile">
+                    <div class="product-tile__image-wrapper">
+                      <img
+                        [src]="getProductImage(product)"
+                        [alt]="product.name"
+                      />
+                    </div>
+                    <h3 class="product-tile__title">
+                      {{ product.name }}
+                    </h3>
+                    <p class="product-tile__price">
+                      R$ {{ product.price | number: '1.2-2' }}
+                    </p>
+                    <a
+                      class="product-tile__link"
+                      [routerLink]="['/product', product.id]"
+                    >
+                      Ver produto
+                    </a>
+                  </article>
+                }
+              </div>
+            </div>
+          </section>
+        }
+      }
+    }
+  </main>
+
+  <app-footer></app-footer>
+</div>

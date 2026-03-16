@@ -1,0 +1,117 @@
+<div class="search-page">
+  <app-header></app-header>
+
+  <div class="search-page__content">
+    <section class="search-header">
+      <h1>Resultados para "{{ query() || 'todas as categorias' }}"</h1>
+      <p>
+        Veja os produtos que mais se aproximam da sua busca.
+      </p>
+    </section>
+
+    <div class="search-layout">
+      <aside class="search-sidebar">
+        <h2 class="search-sidebar__title">Filtrar resultados</h2>
+
+        <div class="search-filter-group">
+          <h3>Preço</h3>
+          <div class="search-filter-price">
+            <label>
+              Mínimo (R$)
+              <input
+                type="number"
+                min="0"
+                (input)="onMinPriceChange($event)"
+              />
+            </label>
+            <label>
+              Máximo (R$)
+              <input
+                type="number"
+                min="0"
+                (input)="onMaxPriceChange($event)"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div class="search-filter-group">
+          <h3>Ordenar por</h3>
+          <select
+            class="search-filter-select"
+            (change)="onSortChange($event)"
+          >
+            <option value="relevance">Relevância</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+            <option value="newest">Mais recentes</option>
+          </select>
+        </div>
+      </aside>
+
+      <div class="search-results">
+        @if (isLoading()) {
+          <div class="search-loading">
+            Carregando produtos...
+          </div>
+        } @else if (filteredProducts().length === 0) {
+          <div class="search-empty">
+            Nenhum produto encontrado para esta busca com os filtros atuais.
+          </div>
+        } @else {
+          <section class="search-grid">
+            @for (product of paginatedProducts(); track product.id) {
+              <article class="search-card">
+                <div class="search-card__image-wrapper">
+                  <img
+                    [src]="getProductImage(product)"
+                    [alt]="product.name"
+                  />
+                </div>
+                <h2 class="search-card__title">
+                  {{ product.name }}
+                </h2>
+                <p class="search-card__price">
+                  R$ {{ product.price | number: '1.2-2' }}
+                </p>
+                <a
+                  class="search-card__link"
+                  [routerLink]="['/product', product.id]"
+                >
+                  Ver detalhes
+                </a>
+              </article>
+            }
+          </section>
+
+          <nav class="search-pagination" aria-label="Paginação de resultados">
+            <button
+              type="button"
+              class="search-pagination__btn"
+              [disabled]="currentPage() === 1"
+              (click)="goToPage(currentPage() - 1)"
+            >
+              Anterior
+            </button>
+
+            <span class="search-pagination__info">
+              Página {{ currentPage() }} de {{ totalPages() }}
+            </span>
+
+            <button
+              type="button"
+              class="search-pagination__btn"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goToPage(currentPage() + 1)"
+            >
+              Próxima
+            </button>
+          </nav>
+        }
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>
+

@@ -2,6 +2,7 @@ import { Component, inject, computed, signal } from '@angular/core';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
+import { Footer } from '../../shared/components/footer/footer';
 import { Breadcrumb } from '../../shared/components/breadcrumb/breadcrumb';
 import { BreadcrumbItem } from '../../shared/components/breadcrumb/breadcrumb';
 import { CartService } from '../../core/services/cart.service';
@@ -9,7 +10,7 @@ import { CartItem } from '../../core/models/cart.model';
 
 @Component({
   selector: 'app-cart',
-  imports: [Header, Breadcrumb, CurrencyPipe, DecimalPipe, RouterLink],
+  imports: [Header, Footer, Breadcrumb, CurrencyPipe, DecimalPipe, RouterLink],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
 })
