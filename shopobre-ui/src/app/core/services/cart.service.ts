@@ -54,4 +54,8 @@ export class CartService {
   getItem(productId: number): CartItem | undefined {
     return this.items().find((i) => i.productId === productId);
   }
+
+  clear(): void {
+    this.items.set([]);
+  }
 }

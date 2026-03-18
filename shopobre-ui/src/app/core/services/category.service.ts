@@ -27,6 +27,10 @@ export class CategoryService {
     );
   }
 
+  getByIdPublic(id: number): Observable<Category | null> {
+    return this.getById(id);
+  }
+
   getCategories(): Observable<Category[]> {
     return this.http.get<CategoryResponse>(this.url, { headers: this.headers }).pipe(
       map((response) => response.data ?? [])
@@ -45,7 +49,7 @@ export class CategoryService {
   }
 
   findOrCreate(name: string): Observable<Category> {
-    return this.getCategories().pipe(
+    return this.getCategoriesPublic().pipe(
       switchMap((categories) => {
         const found = categories.find(
           (c) => c.name.toLowerCase() === name.toLowerCase()

@@ -155,9 +155,7 @@ export class SearchPage implements OnInit {
 
     const hasToken = !!this.authService.getToken();
 
-    const categories$ = hasToken
-      ? this.categoryService.getCategories()
-      : this.categoryService.getCategoriesPublic();
+    const categories$ = this.categoryService.getCategoriesPublic();
 
     const products$ = hasToken
       ? this.productService.getProducts().pipe(

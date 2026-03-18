@@ -4,6 +4,9 @@
     <div class="dropdown-custom" [class.show]="isDropdownOpen">
       <a class="sub-item" (click)="accountClick.emit()">Edit profile</a>
       <a class="sub-item" (click)="addressClick.emit()">Edit address</a>
+      <a class="sub-item" routerLink="/orders" (click)="isDropdownOpen = false">
+        <i class="fas fa-box me-2"></i>Meus Pedidos
+      </a>
       <a class="logout-item" (click)="logout()"> <i class="fas fa-sign-out-alt me-2"></i>Logout </a>
     </div>
   </div>
