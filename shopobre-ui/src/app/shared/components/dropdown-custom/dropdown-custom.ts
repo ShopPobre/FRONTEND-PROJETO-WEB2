@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-dropdown-custom',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dropdown-custom.html',
   styleUrl: './dropdown-custom.scss',
 })

@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, input, Output, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { FormEdit } from '../form-edit/form-edit';
 import { ActionsFooter } from '../actions-footer/actions-footer';
 import { User } from '../../../core/models/user.model';

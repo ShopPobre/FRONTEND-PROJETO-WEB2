@@ -63,7 +63,7 @@ export class ProductForm implements OnInit {
         this.price.set(String(product.price));
         this.original.set({ ...product });
 
-        this.categoryService.getCategories().subscribe((categories: Category[]) => {
+        this.categoryService.getCategoriesPublic().subscribe((categories: Category[]) => {
           const category = categories.find((c: Category) => c.id === product.categoryId);
           this.categoryName.set(category?.name ?? '');
         });

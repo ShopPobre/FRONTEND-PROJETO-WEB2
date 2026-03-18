@@ -66,7 +66,7 @@ export class ProductDetail implements OnInit, OnDestroy {
     this.productService.getById(numId).subscribe((p) => {
       this.product.set(p ?? null);
       if (p?.categoryId) {
-        this.categoryService.getById(p.categoryId).subscribe((c) => {
+        this.categoryService.getByIdPublic(p.categoryId).subscribe((c) => {
           this.categoryName.set(c?.name ?? '');
         });
       }

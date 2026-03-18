@@ -1,0 +1,120 @@
+<div class="order-detail-page">
+  <app-header></app-header>
+
+<main class="order-detail-main">
+  <section class="container">
+    <nav class="breadcrumb">
+      <a routerLink="/home">Home</a>
+      <span>/</span>
+      <a routerLink="/orders">Meus pedidos</a>
+      <span>/</span>
+      <span *ngIf="order">Pedido #{{ order.id }}</span>
+    </nav>
+
+    <h2 class="title" *ngIf="order">Pedido #{{ order.id }}</h2>
+
+    <p *ngIf="loading" class="status">Carregando pedido...</p>
+    <p *ngIf="!loading && error" class="status status-error">{{ error }}</p>
+
+    <section *ngIf="!loading && !error && order" class="card card-grid">
+      <div class="card-section">
+        <h3 class="section-title">Resumo do pedido</h3>
+        <div class="row">
+          <span class="label">Status</span>
+          <span class="value">{{ order.status }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Total</span>
+          <span class="value">R$ {{ order.total | number : '1.2-2' }}</span>
+        </div>
+        <div class="row" *ngIf="order.createdAt">
+          <span class="label">Criado em</span>
+          <span class="value">{{ order.createdAt | date : 'short' }}</span>
+        </div>
+        <div class="row" *ngIf="order.updatedAt">
+          <span class="label">Atualizado em</span>
+          <span class="value">{{ order.updatedAt | date : 'short' }}</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <h3 class="section-title">Quem comprou</h3>
+        <div class="row">
+          <span class="label">Nome</span>
+          <span class="value">{{ order.user.name }}</span>
+        </div>
+        <div class="row">
+          <span class="label">E-mail</span>
+          <span class="value">{{ order.user.email }}</span>
+        </div>
+        <div class="row">
+          <span class="label">CPF</span>
+          <span class="value">{{ order.user.cpf }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Telefone</span>
+          <span class="value">{{ order.user.telefone }}</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <h3 class="section-title">Endereço de entrega</h3>
+        <div class="row">
+          <span class="label">Endereço</span>
+          <span class="value">
+            {{ order.address.rua }}, {{ order.address.numero }} - {{ order.address.cidade }}/{{ order.address.estado }}
+          </span>
+        </div>
+        <div class="row">
+          <span class="label">CEP</span>
+          <span class="value">{{ order.address.cep }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Tipo</span>
+          <span class="value">{{ order.address.tipo }}</span>
+        </div>
+      </div>
+
+      <div class="card-section card-section-full">
+        <h3 class="section-title">Itens do pedido</h3>
+        <div
+          class="items-list"
+          *ngIf="order.items && order.items.length; else noItems"
+        >
+          <article class="item" *ngFor="let item of order.items">
+            <div class="item-thumb" *ngIf="item.product.mainImage">
+              <img
+                [src]="item.product.mainImage.url"
+                [alt]="item.product.mainImage.altText || item.product.name"
+              />
+            </div>
+            <div class="item-info">
+              <h4 class="item-name">{{ item.product.name }}</h4>
+              <p class="item-desc" *ngIf="item.product.description">
+                {{ item.product.description }}
+              </p>
+              <div class="item-meta">
+                <span>Qtd: {{ item.quantity }}</span>
+                <span>Valor unitário: R$ {{ item.unitPrice | number : '1.2-2' }}</span>
+                <span>Subtotal: R$ {{ item.subtotal | number : '1.2-2' }}</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <ng-template #noItems>
+          <p class="status">Nenhum item encontrado para este pedido.</p>
+        </ng-template>
+      </div>
+
+      <div class="actions">
+        <a routerLink="/orders" class="btn-back">Voltar para pedidos</a>
+        <a routerLink="/home" class="btn-secondary">Voltar para a loja</a>
+      </div>
+    </section>
+  </section>
+</main>
+
+<app-footer></app-footer>
+
+</div>
+

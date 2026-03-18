@@ -140,9 +140,7 @@ export class Home implements OnInit {
         )
       : this.productService.getProductsPublic();
 
-    const categories$ = hasToken
-      ? this.categoryService.getCategories()
-      : this.categoryService.getCategoriesPublic();
+    const categories$ = this.categoryService.getCategoriesPublic();
 
     forkJoin({
       products: products$,
