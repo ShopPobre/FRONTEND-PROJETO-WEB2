@@ -1,6 +1,5 @@
 import { Component, input, OnInit, output } from '@angular/core';
-import { OrderResponseDTO } from '../../../core/models/order.model';
-
+import { OrderResponseDTO, OrderStatus } from '../../../core/models/order.model';
 
 @Component({
   selector: 'app-order-list-card',
@@ -8,11 +7,14 @@ import { OrderResponseDTO } from '../../../core/models/order.model';
   templateUrl: './order-list-card.html',
   styleUrl: './order-list-card.scss',
 })
-export class OrderListCard  {
-
-
+export class OrderListCard {
   order = input.required<OrderResponseDTO>();
-  editClick = output<number>();
   deleteClick = output<number>();
 
+  statusChanged = output<{ id: number; status: OrderStatus }>();
+
+  onStatusChange(event: Event) {
+    const status = (event.target as HTMLSelectElement).value as OrderStatus;
+    this.statusChanged.emit({ id: this.order().id, status });
+  }
 }

@@ -11,12 +11,4 @@ import { OrderList } from '../../../shared/components/order-list/order-list';
   templateUrl: './order.html',
   styleUrl: './order.scss',
 })
-export class Order {
-
-  private router = inject(Router);
-
-   navegarEdit(orderId: number) {
-    this.router.navigate(['admin/orders/edit', orderId]);
-  }
-
-}
+export class Order {}

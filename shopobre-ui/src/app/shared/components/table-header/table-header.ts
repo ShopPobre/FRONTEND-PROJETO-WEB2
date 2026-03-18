@@ -10,5 +10,6 @@ export class TableHeader {
 
   title = input('Product Name');
   label = input.required<string>();
+  isOrder = input(true);
 
 }

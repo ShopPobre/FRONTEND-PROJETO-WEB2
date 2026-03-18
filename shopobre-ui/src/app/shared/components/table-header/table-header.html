@@ -1,8 +1,10 @@
-<div class="table-header mb-2">
+<div class="table-header mb-2" [class.with-price]="isOrder()" [class.without-price]="!isOrder()">
   <div><input class="form-check-input checkbox-lg" type="checkbox" /></div>
   <div>{{ title() }}</div>
-  <div> {{ label() }}</div>
+  <div>{{ label() }}</div>
   <div>Status</div>
-  <div>Price</div>
+  @if(isOrder()){
+    <div>Price</div>
+  }
   <div class="text-center">Action</div>
 </div>
