@@ -13,6 +13,11 @@ import { AccountAdmin } from './pages/admin-mode/account-admin/account-admin';
 import { EditProduct } from './pages/admin-mode/edit-product/edit-product';
 import { Inventory } from './pages/admin-mode/inventory/inventory';
 import { Order } from './pages/admin-mode/order/order';
+import { CategoryPage } from './pages/category/category';
+import { SearchPage } from './pages/search/search';
+import { CheckoutPayment } from './pages/checkout-payment/checkout-payment';
+import { OrdersPage } from './pages/orders/orders';
+import { OrderDetailPage } from './pages/order-detail/order-detail';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,6 +26,8 @@ export const routes: Routes = [
 
   { path: 'account', component: Account, canActivate: [authGuard] },
   { path: 'address', component: Address, canActivate: [authGuard] },
+  { path: 'orders', component: OrdersPage, canActivate: [authGuard] },
+  { path: 'orders/:id', component: OrderDetailPage, canActivate: [authGuard] },
 
   // ADMIN
   {
@@ -38,6 +45,13 @@ export const routes: Routes = [
   },
 
   { path: 'home', component: Home },
+  { path: 'search', component: SearchPage },
+  { path: 'category/:slug', component: CategoryPage },
   { path: 'cart', component: Cart },
   { path: 'product/:id', component: ProductDetail },
+  {
+    path: 'checkout/payment/:orderId',
+    component: CheckoutPayment,
+    canActivate: [authGuard],
+  },
 ];

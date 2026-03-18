@@ -1,0 +1,123 @@
+<div class="category-page">
+  <app-header></app-header>
+
+  <div class="category-page__content">
+    <section class="category-header">
+      <h1>
+        @if (currentConfig(); as config) {
+          {{ config.label }}
+        } @else {
+          Produtos
+        }
+      </h1>
+      <p>
+        Explore os produtos selecionados para esta categoria no Shopobre.
+      </p>
+    </section>
+
+    <div class="category-layout">
+      <aside class="category-sidebar">
+        <h2 class="category-sidebar__title">Filtrar resultados</h2>
+
+        <div class="category-filter-group">
+          <h3>Preço</h3>
+          <div class="category-filter-price">
+            <label>
+              Mínimo (R$)
+              <input
+                type="number"
+                min="0"
+                (input)="onMinPriceChange($event)"
+              />
+            </label>
+            <label>
+              Máximo (R$)
+              <input
+                type="number"
+                min="0"
+                (input)="onMaxPriceChange($event)"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div class="category-filter-group">
+          <h3>Ordenar por</h3>
+          <select
+            class="category-filter-select"
+            (change)="onSortChange($event)"
+          >
+            <option value="relevance">Relevância</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+            <option value="newest">Mais recentes</option>
+          </select>
+        </div>
+      </aside>
+
+      <div class="category-results">
+        @if (isLoading()) {
+          <div class="category-loading">
+            Carregando produtos...
+          </div>
+        } @else if (filteredProducts().length === 0) {
+          <div class="category-empty">
+            Nenhum produto encontrado para esta categoria com os filtros atuais.
+          </div>
+        } @else {
+          <section class="category-grid">
+            @for (product of paginatedProducts(); track product.id) {
+              <article class="category-card">
+                <div class="category-card__image-wrapper">
+                  <img
+                    [src]="getProductImage(product)"
+                    [alt]="product.name"
+                  />
+                </div>
+                <h2 class="category-card__title">
+                  {{ product.name }}
+                </h2>
+                <p class="category-card__price">
+                  R$ {{ product.price | number: '1.2-2' }}
+                </p>
+                <a
+                  class="category-card__link"
+                  [routerLink]="['/product', product.id]"
+                >
+                  Ver detalhes
+                </a>
+              </article>
+            }
+          </section>
+
+          <nav class="category-pagination" aria-label="Paginação de resultados">
+            <button
+              type="button"
+              class="category-pagination__btn"
+              [disabled]="currentPage() === 1"
+              (click)="goToPage(currentPage() - 1)"
+            >
+              Anterior
+            </button>
+
+            <span class="category-pagination__info">
+              Página {{ currentPage() }} de {{ totalPages() }}
+            </span>
+
+            <button
+              type="button"
+              class="category-pagination__btn"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goToPage(currentPage() + 1)"
+            >
+              Próxima
+            </button>
+          </nav>
+        }
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>
+

@@ -1,0 +1,71 @@
+<div class="checkout-payment-page">
+  <app-header></app-header>
+
+  <main class="checkout-payment">
+    <section class="container">
+    <h2 class="title">Pagamento do pedido #{{ orderId }}</h2>
+
+    @if (!clientSecret && !loadingPayment()) {
+      <div class="card card-message">
+        <p class="message-error">
+          Dados de pagamento não encontrados. Volte ao carrinho e clique em "Realizar o checkout" novamente.
+        </p>
+        <a routerLink="/cart" class="btn-back">Voltar ao carrinho</a>
+      </div>
+    } @else if (!clientSecret && loadingPayment()) {
+      <div class="card card-message">
+        <p class="message-info">Carregando dados de pagamento...</p>
+      </div>
+    } @else if (!configLoaded()) {
+      <div class="card card-message">
+        <p class="message-info">Carregando configuração de pagamento...</p>
+      </div>
+    } @else if (!stripePublishableKey()) {
+      <div class="card card-message">
+        <p class="message-warning">
+          A chave publicável do Stripe não está configurada no backend. Adicione <code>STRIPE_PUBLISHABLE_KEY=pk_test_...</code> no arquivo <code>.env</code> do backend.
+        </p>
+        <a routerLink="/cart" class="btn-back">Voltar ao carrinho</a>
+      </div>
+    } @else {
+      <div class="card">
+        @if (orderTotal !== null) {
+          <p class="summary">
+            Total do pedido: <strong>R$ {{ orderTotal | number : '1.2-2' }}</strong>
+          </p>
+        }
+
+        <div class="form-group">
+          <label for="card-element">Dados do cartão</label>
+          <div #cardElement id="card-element" class="card-element-container"></div>
+          <p class="card-hint">
+            Cartão de teste: <strong>4242 4242 4242 4242</strong> · Validade: 12/34 · CVC: 123
+          </p>
+        </div>
+
+        @if (message(); as msg) {
+          <div class="message-box" [class.success]="msg === 'success'" [class.error]="msg === 'error'">
+            {{ messageText() }}
+          </div>
+        }
+
+        <div class="actions">
+          <button
+            type="button"
+            class="btn-pay"
+            [disabled]="!cardReady() || paying()"
+            (click)="pay()"
+          >
+            {{ paying() ? 'Processando...' : 'Pagar com cartão' }}
+          </button>
+          <button type="button" class="btn-back secondary" (click)="backToCart()">
+            Voltar ao carrinho
+          </button>
+        </div>
+      </div>
+    }
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>

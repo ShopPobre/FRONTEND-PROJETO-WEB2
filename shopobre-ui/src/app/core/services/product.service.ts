@@ -40,11 +40,7 @@ export class ProductService {
 
     const imageUrls =
       imageDtos.length > 0
-        ? imageDtos.map((img) =>
-            img.urlPath.startsWith('/api/')
-              ? `${serverBase}${img.urlPath}`
-              : `${baseApi}${img.urlPath}`,
-          )
+        ? imageDtos.map((img) => this.buildImageUrl(img.urlPath, baseApi, serverBase))
         : this.defaultPlaceholderImages();
 
     const { images: _images, mainImage: _main, ...rest } = p;
@@ -55,6 +51,19 @@ export class ProductService {
     };
 
     return view;
+  }
+
+  buildImageUrl(urlPath: string, baseApiParam?: string, serverBaseParam?: string): string {
+    const baseApi = baseApiParam ?? this.api.getBaseUrl();
+    const serverBase = serverBaseParam ?? baseApi.replace(/\/api\/?$/, '');
+
+    if (!urlPath) {
+      return this.defaultPlaceholderImages()[0];
+    }
+
+    return urlPath.startsWith('/api/')
+      ? `${serverBase}${urlPath}`
+      : `${baseApi}${urlPath}`;
   }
 
   private defaultPlaceholderImages(): string[] {
@@ -80,6 +89,17 @@ export class ProductService {
         headers: this.authHeaders,
       })
       .pipe(map((response) => response.data));
+  }
+
+  /**
+   * Versão pública, sem header de autenticação.
+   * Usada na Home, página de categoria e demais páginas abertas.
+   */
+  getProductsPublic(): Observable<ProductResponseDTO[]> {
+    return this.http.get<any>(this.url).pipe(
+      map((resp: any) => resp?.data ?? resp ?? []),
+      catchError(() => of([] as ProductResponseDTO[]))
+    );
   }
 
   createProduct(productData: unknown) {

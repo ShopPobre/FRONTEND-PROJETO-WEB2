@@ -8,10 +8,13 @@ $btn-checkout-height: 56px;
 .cart-page {
   min-height: 100vh;
   background: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .cart-container {
-  padding-top: 0.5rem;
+  flex: 1;
+  padding-top: 7.8rem;
   padding-bottom: 3rem;
 }
 
@@ -267,6 +270,26 @@ $col-gap-three: 2rem;
   flex-direction: column;
   box-sizing: border-box;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.cart-address-select {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #495057;
+  }
+
+  .address-select {
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    font-size: 0.9rem;
+  }
 }
 
 .cart-total-title {

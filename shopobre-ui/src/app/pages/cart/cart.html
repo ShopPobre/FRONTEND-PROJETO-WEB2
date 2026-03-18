@@ -67,6 +67,23 @@
       <a routerLink="/home" class="btn-return">Retornar à loja</a>
       <div class="cart-total-box">
         <h2 class="cart-total-title">Total do carrinho</h2>
+        @if (addresses().length > 0) {
+          <div class="cart-address-select">
+            <label for="address-select">Endereço de entrega</label>
+            <select
+              id="address-select"
+              class="address-select"
+              [value]="selectedAddressId() ?? ''"
+              (change)="onAddressChange($any($event.target).value)"
+            >
+              @for (addr of addresses(); track addr.id) {
+                <option [value]="addr.id">
+                  {{ addr.rua }}, {{ addr.numero }} - {{ addr.cidade }}/{{ addr.estado }}
+                </option>
+              }
+            </select>
+          </div>
+        }
         <div class="cart-total-row">
           <span>Subtotal:</span>
           <span>{{ subtotal() | currency : 'BRL' : 'symbol' : '1.0-0' }}</span>
@@ -100,4 +117,6 @@
       </div>
     </div>
   }
+
+  <app-footer></app-footer>
 </div>

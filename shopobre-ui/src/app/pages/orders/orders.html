@@ -1,0 +1,65 @@
+<div class="orders-page">
+  <app-header></app-header>
+
+  <main class="orders-content">
+  <section class="container">
+    <h2 class="title">Pedidos realizados</h2>
+
+    <p *ngIf="loading" class="status">Carregando pedidos...</p>
+    <p *ngIf="!loading && error" class="status status-error">{{ error }}</p>
+
+    <ng-container *ngIf="!loading && !error">
+      <p *ngIf="orders.length === 0" class="status">
+        Você ainda não possui pedidos.
+      </p>
+
+      <ul *ngIf="orders.length > 0" class="order-list">
+        <li
+          *ngFor="let order of orders"
+          class="order-item"
+          [routerLink]="['/orders', order.id]"
+        >
+          <div class="order-main">
+            <span class="order-id">#{{ order.id }}</span>
+            <span class="order-status">Status: {{ order.status }}</span>
+          </div>
+          <div class="order-meta">
+            <span class="order-total">Total: R$ {{ order.total | number : '1.2-2' }}</span>
+            <span *ngIf="order.createdAt" class="order-date">
+              Criado em: {{ order.createdAt | date : 'short' }}
+            </span>
+          </div>
+        </li>
+      </ul>
+
+      <div *ngIf="orders.length > 0" class="pagination">
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="page <= 1 || loading"
+          (click)="goToPrevious()"
+        >
+          Anterior
+        </button>
+
+        <span class="page-info">
+          Página {{ page }} de {{ totalPages }}
+          <ng-container *ngIf="total"> ({{ total }} pedidos)</ng-container>
+        </span>
+
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="page >= totalPages || loading"
+          (click)="goToNext()"
+        >
+          Próxima
+        </button>
+      </div>
+    </ng-container>
+  </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
+
