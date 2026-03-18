@@ -3,5 +3,7 @@
     <i class="fas fa-search"></i>
     <input type="text" class="form-control" placeholder="Search" />
   </div>
-  <app-button [label]="label()" (btnClick)="btnClick.emit()"></app-button>
+  @if(label() !== '') {
+    <app-button [label]="label()" (btnClick)="btnClick.emit()"></app-button>
+  }
 </div>

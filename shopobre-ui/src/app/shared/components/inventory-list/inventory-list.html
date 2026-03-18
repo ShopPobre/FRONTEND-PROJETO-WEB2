@@ -1,0 +1,15 @@
+<app-table-header [label]="'Quantity'"></app-table-header>
+@if (isLoading()) {
+  <p>Carregando...</p>
+} @else if (inventories().length === 0) {
+  <div class="d-flex align-items-center justify-content-center">
+    <p>Nenhum inventario encontrado.</p>
+  </div>
+} @else {
+  @for (inventory of inventories(); track inventory.id) {
+    <app-inventory-list-card
+      [inventory]="inventory"
+      (editClick)="editClick.emit($event)"
+    />
+  }
+}

@@ -1,0 +1,28 @@
+<div class="product-card">
+  <div><input class="form-check-input" type="checkbox" /></div>
+  <div class="product-info">
+    <div class="product-details">
+      <div class="product-name">{{ order().id }}</div>
+    </div>
+  </div>
+  <div class="column-text">{{ order().createdAt }}</div>
+  <div class="column-text">
+    <select
+      class="status-select"
+      [class]="'status-select status-' + order().status"
+      [value]="order().status"
+      (change)="onStatusChange($event)"
+    >
+      <option value="CONFIRMADO">Confirmado</option>
+      <option value="EM_PREPARACAO">Em Preparação</option>
+      <option value="ENVIADO">Enviado</option>
+      <option value="ENTREGUE">Entregue</option>
+      <option value="CANCELADO">Cancelado</option>
+    </select>
+  </div>
+  <div class="action-btns">
+    <button class="action-btn delete" (click)="deleteClick.emit(order().id)">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  </div>
+</div>

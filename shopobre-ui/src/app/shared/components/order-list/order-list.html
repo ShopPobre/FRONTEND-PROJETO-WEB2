@@ -1,0 +1,16 @@
+<app-table-header [label]="'Created At'" [title]="'Order id'" [isOrder]="false"></app-table-header>
+@if (isLoading()) {
+  <p>Carregando...</p>
+} @else if (orders().length === 0) {
+  <div class="d-flex align-items-center justify-content-center">
+    <p>Nenhum pedido encontrado.</p>
+  </div>
+}  @else {
+  @for (order of orders(); track order.id) {
+    <app-order-list-card
+      [order]="order"
+      (statusChanged)="onStatusChanged($event)"
+      (deleteClick)="onDelete($event)"
+    />
+  }
+}
