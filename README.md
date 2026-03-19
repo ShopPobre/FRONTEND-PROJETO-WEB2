@@ -269,12 +269,32 @@ Com backend rodando:
 stripe listen --forward-to localhost:3000/webhook/stripe
 ```
 
+- Observacao: o `whsec_...` so e exibido quando voce executa o `stripe listen`. Entao o webhook **nao confirma pagamento** ate voce copiar esse valor para o `.env` e reiniciar o backend.
 - Esse comando imprime um segredo `whsec_...`.
 - Copie esse valor para `STRIPE_WEBHOOK_SECRET` no `.env` do backend.
 - Reinicie o backend para aplicar:
 
 ```bash
 docker compose restart backend
+```
+
+#### Alternativa (rodar backend em modo dev pelo VSCode)
+
+Se preferir rodar o backend fora do container (hot-reload) para facilitar debug do webhook:
+
+```bash
+# na pasta workspace/
+docker compose stop backend
+
+cd BACKEND-PROJETO-WEB2
+npm install
+npm run dev
+```
+
+Depois rode:
+
+```bash
+stripe listen --forward-to localhost:3000/webhook/stripe
 ```
 
 ---
