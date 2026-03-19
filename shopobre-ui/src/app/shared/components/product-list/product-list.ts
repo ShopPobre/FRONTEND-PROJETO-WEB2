@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, output, Output, signal } from '@angular/core';
+import { Component, EventEmitter, OnInit, computed, input, output, Output, signal } from '@angular/core';
 import { ProductListCard } from '../product-list-card/product-list-card';
 import { ProductResponseDTO } from '../../../core/models/product.model';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,21 @@ import { SwalService } from '../../../core/services/swal.service';
   styleUrl: './product-list.scss',
 })
 export class ProductList implements OnInit {
-  products = signal<ProductResponseDTO[]>([]);
+  private readonly allProducts = signal<ProductResponseDTO[]>([]);
+  readonly searchTerm = input<string>('');
+
+  readonly products = computed(() => {
+    const q = this.normalizeText(this.searchTerm());
+    const list = this.allProducts();
+    if (!q) return list;
+
+    return list.filter((p) => {
+      const name = this.normalizeText(p.name);
+      const desc = this.normalizeText(p.description ?? '');
+      return name.includes(q) || desc.includes(q);
+    });
+  });
+
   isLoading = signal(false);
   editClick = output<number>();
 
@@ -27,10 +41,20 @@ export class ProductList implements OnInit {
     this.loadProducts();
   }
 
+  private normalizeText(input: string): string {
+    return (input ?? '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, ' ');
+  }
+
   private loadProducts() {
+    this.isLoading.set(true);
     this.productService.getProducts().subscribe({
       next: (response: any) => {
-        this.products.set(response.data ?? response);
+        this.allProducts.set(response.data ?? response ?? []);
         this.isLoading.set(false);
       },
       error: (err) => {
@@ -53,7 +77,7 @@ export class ProductList implements OnInit {
         this.productService.deleteProduct(String(productId)).subscribe({
           next: () => {
             this.swalService.success('Produto excluído!');
-            this.products.update((list) => list.filter((p) => p.id !== productId));
+            this.allProducts.update((list) => list.filter((p) => p.id !== productId));
           },
           error: (err) => {
             const mensagem = err.error?.error || err.error?.message || 'Erro ao excluir produto';

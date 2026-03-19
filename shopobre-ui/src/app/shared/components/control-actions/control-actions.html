@@ -1,7 +1,12 @@
 <div class="controls-row">
   <div class="search-container">
     <i class="fas fa-search"></i>
-    <input type="text" class="form-control" placeholder="Search" />
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search"
+      (input)="searchChange.emit(($any($event.target).value ?? ''))"
+    />
   </div>
   @if(label() !== '') {
     <app-button [label]="label()" (btnClick)="btnClick.emit()"></app-button>

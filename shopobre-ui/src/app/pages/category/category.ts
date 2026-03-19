@@ -64,6 +64,7 @@ export class CategoryPage implements OnInit {
     { slug: 'livros', label: 'Livros' },
     { slug: 'casa', label: 'Casa' },
     { slug: 'eletronicos', label: 'Eletrônicos' },
+    { slug: 'placas-video', label: 'Placa de Vídeo' },
     { slug: 'brinquedos-jogos', label: 'Brinquedos e Jogos' },
     { slug: 'computadores', label: 'Computadores' },
     { slug: 'moda', label: 'Moda' },

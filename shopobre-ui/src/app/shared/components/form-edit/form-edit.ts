@@ -14,4 +14,7 @@ export class FormEdit {
   value = input<string>('');
   valueChange = output<string>();
 
+  listId = input<string | null>(null);
+  datalistOptions = input<string[] | null>(null);
+
 }

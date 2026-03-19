@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { SideBar } from '../../../shared/components/side-bar/side-bar';
 import { TopNavBar } from '../../../shared/components/top-nav-bar/top-nav-bar';
 import { ControlActions } from '../../../shared/components/control-actions/control-actions';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class Product {
   private router = inject(Router);
+  readonly searchTerm = signal('');
 
   navegar() {
     this.router.navigate(['admin/products/add']);
@@ -20,5 +21,9 @@ export class Product {
 
   navegarEdit(productId: number) {
     this.router.navigate(['admin/products/edit', productId]);
+  }
+
+  onSearchChange(value: string): void {
+    this.searchTerm.set(value ?? '');
   }
 }
