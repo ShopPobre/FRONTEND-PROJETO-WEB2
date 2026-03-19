@@ -49,13 +49,36 @@ export class ProductDetail implements OnInit, OnDestroy {
     const list = hasMore ? imgs.slice(0, MAX_THUMBNAILS - 1) : imgs.slice(0, MAX_THUMBNAILS);
     return { list, hasMore, total: imgs.length };
   });
+
+  private categorySlugFromName(name: string): string | null {
+    const n = (name ?? '').toLowerCase();
+    if (!n) return null;
+    // precisa bater com `CategoryPage.slugConfigs` e com os links do header/home
+    if (n.includes('games')) return 'games';
+    if (n.includes('celulares')) return 'celulares';
+    if (n.includes('papelaria')) return 'material-escolar';
+    if (n.includes('computadores')) return 'computadores';
+    if (n.includes('livros')) return 'livros';
+    if (n.includes('placa de vídeo') || n.includes('placa de video')) return 'placas-video';
+    if (n.includes('eletr')) return 'eletronicos';
+    if (n.includes('casa')) return 'casa';
+    if (n.includes('brinquedos')) return 'brinquedos-jogos';
+    if (n.includes('moda')) return 'moda';
+    if (n.includes('beleza')) return 'beleza';
+    if (n.includes('mercado')) return 'mercado';
+    return null;
+  }
+
   breadcrumbItems = computed((): BreadcrumbItem[] => {
     const p = this.product();
     const cat = this.categoryName();
-    const account: BreadcrumbItem = { label: 'Account', link: '/' };
-    const category: BreadcrumbItem = cat ? { label: cat, link: `/category/${p?.categoryId}` } : { label: 'Categoria' };
+    const home: BreadcrumbItem = { label: 'Home', link: '/home' };
+    const slug = this.categorySlugFromName(cat);
+    const category: BreadcrumbItem = cat
+      ? { label: cat, link: slug ? `/category/${slug}` : undefined }
+      : { label: 'Categoria' };
     const productName: BreadcrumbItem = { label: p?.name ?? 'Produto' };
-    return [account, category, productName];
+    return [home, category, productName];
   });
 
   ngOnInit(): void {

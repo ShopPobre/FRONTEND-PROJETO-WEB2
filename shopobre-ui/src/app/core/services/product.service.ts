@@ -113,4 +113,18 @@ export class ProductService {
   deleteProduct(productID: string) {
     return this.http.delete(`${this.url}/${productID}`, { headers: this.authHeaders });
   }
+
+  uploadProductImage(productId: number, file: File): Observable<ProductImageDTO> {
+    const form = new FormData();
+    form.append('file', file, file.name);
+    return this.http.post<ProductImageDTO>(`${this.url}/${productId}/images`, form, {
+      headers: this.authHeaders,
+    });
+  }
+
+  deleteProductImage(productId: number, imageId: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${productId}/images/${imageId}`, {
+      headers: this.authHeaders,
+    });
+  }
 }

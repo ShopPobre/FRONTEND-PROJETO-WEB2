@@ -32,6 +32,7 @@ export class Header {
     { label: 'Livros', slug: 'livros' },
     { label: 'Casa', slug: 'casa' },
     { label: 'Eletrônicos', slug: 'eletronicos' },
+    { label: 'Placa de Vídeo', slug: 'placas-video' },
     { label: 'Brinquedos e Jogos', slug: 'brinquedos-jogos' },
     { label: 'Computadores', slug: 'computadores' },
     { label: 'Moda', slug: 'moda' },

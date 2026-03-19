@@ -12,5 +12,6 @@ export class ControlActions {
   label = input.required<string>();
 
   @Output() btnClick = new EventEmitter<void>();
+  @Output() searchChange = new EventEmitter<string>();
 
 }

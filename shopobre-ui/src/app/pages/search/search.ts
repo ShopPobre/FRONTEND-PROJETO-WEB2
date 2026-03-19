@@ -45,6 +45,15 @@ export class SearchPage implements OnInit {
     });
   }
 
+  private normalizeText(input: string): string {
+    return (input ?? '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, ' ');
+  }
+
   onMinPriceChange(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.minPrice.set(value ? Number(value) : null);
@@ -71,7 +80,7 @@ export class SearchPage implements OnInit {
   }
 
   readonly filteredProducts = computed(() => {
-    const q = this.query().toLowerCase().trim();
+    const q = this.normalizeText(this.query());
     let list = this.products().filter((p) => p.isActive);
 
     if (q) {
@@ -126,10 +135,10 @@ export class SearchPage implements OnInit {
   }
 
   private relevanceScore(p: ProductResponseDTO, q: string): number {
-    const name = p.name.toLowerCase();
-    const desc = (p.description ?? '').toLowerCase();
+    const name = this.normalizeText(p.name);
+    const desc = this.normalizeText(p.description ?? '');
     const category = this.categories().find((c) => c.id === p.categoryId);
-    const categoryName = category?.name.toLowerCase() ?? '';
+    const categoryName = this.normalizeText(category?.name ?? '');
 
     let score = 0;
 

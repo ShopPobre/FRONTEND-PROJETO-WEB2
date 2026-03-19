@@ -25,11 +25,19 @@
     <div class="col-md-6">
       <app-form-edit
         [type]="'text'"
-        [label]="'Category'"
-        [placeholder]="'categoria'"
+        [label]="'Categoria'"
+        [placeholder]="'Selecione ou digite para criar'"
         [value]="categoryName()"
         (valueChange)="categoryName.set($event)"
+        [listId]="'category-options'"
+        [datalistOptions]="categoryOptions()"
       ></app-form-edit>
+
+      @if (categoryName().trim() !== '' && !hasExactCategoryMatch()) {
+        <div class="category-hint">
+          Essa categoria não existe ainda. Ao salvar, será criada como <strong>{{ categoryName() }}</strong>.
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <app-form-edit
@@ -42,10 +50,59 @@
     </div>
   </div>
 
+  <div class="images-section">
+    <div class="images-header">
+      <h3 class="images-title">Imagens do produto</h3>
+      <label class="btn-upload">
+        Selecionar imagens
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          (change)="onFilesSelected($event)"
+        />
+      </label>
+    </div>
+
+    @if (productId() && existingImages().length > 0) {
+      <div class="images-subtitle">Imagens existentes</div>
+      <div class="images-grid">
+        @for (img of existingImages(); track img.id) {
+          <div class="image-card">
+            <img class="image-thumb" [src]="productService.buildImageUrl(img.urlPath)" [alt]="img.originalName" />
+            <div class="image-meta">
+              <div class="image-name" [title]="img.originalName">{{ img.originalName }}</div>
+              <button type="button" class="btn-remove" (click)="deleteExistingImage(img)">Remover</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (selectedFiles().length > 0) {
+      <div class="images-subtitle">Novas imagens (serão enviadas ao salvar)</div>
+      <div class="images-grid">
+        @for (file of selectedFiles(); track file.name + file.size) {
+          <div class="image-card">
+            <img class="image-thumb" [src]="previewUrlForFile(file)" [alt]="file.name" />
+            <div class="image-meta">
+              <div class="image-name" [title]="file.name">{{ file.name }}</div>
+              <button type="button" class="btn-remove" (click)="removeSelectedFile(file)">Remover</button>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      @if (!productId()) {
+        <div class="images-hint">Selecione pelo menos 1 imagem para criar o produto.</div>
+      }
+    }
+  </div>
+
   <app-actions-footer
     [label]="label()"
     [cancelRoute]="navegar()"
     (saveChanges)="saveProduct()"
-    [disabled]="!isDirty()"
+    [disabled]="!canSave()"
   ></app-actions-footer>
 </div>
