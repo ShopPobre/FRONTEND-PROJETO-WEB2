@@ -1,0 +1,15 @@
+<app-side-bar></app-side-bar>
+
+<main class="main-container">
+  <app-top-nav-bar></app-top-nav-bar>
+  <app-control-actions
+    [label]="'Add Product'"
+    (btnClick)="navegar()"
+    (searchChange)="onSearchChange($event)"
+  ></app-control-actions>
+
+  <app-product-list
+    [searchTerm]="searchTerm()"
+    (editClick)="navegarEdit($event)"
+  ></app-product-list>
+</main>

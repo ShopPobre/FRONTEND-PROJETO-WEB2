@@ -1,0 +1,14 @@
+<div class="sidebar">
+  <div class="logo-container">
+    <div class="brand-logo">
+      <span class="shop"><img src="assets/images/logo.svg" alt="" /></span>
+    </div>
+  </div>
+  <nav class="nav flex-column">
+    <a routerLink="/admin/products" routerLinkActive="active" class="nav-link"> <i class="fas fa-cubes"></i> <span>Products</span> </a>
+    <a routerLink="/admin/inventory" routerLinkActive="active" class="nav-link"> <i class="fas fa-archive"></i> <span>Inventory</span> </a>
+    <a routerLink="/admin/orders" routerLinkActive="active" class="nav-link"> <i class="fas fa-shopping-basket"></i> <span>Orders</span> </a>
+    <a routerLink="/admin/account" routerLinkActive="active" class="nav-link"> <i class="fas fa-cog"></i> <span>Settings</span> </a>
+    <a class="nav-link" (click)="logout()"> <i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+  </nav>
+</div>

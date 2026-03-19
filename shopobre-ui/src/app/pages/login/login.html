@@ -1,0 +1,9 @@
+<app-default-login-signup-layout
+    [text]="'Login'"
+    [textspan]="' Registre-se'"
+    [label]="'Login'"
+    [welcomeText]="'Hello, Welcome!'"
+    [buttonText]="'Registration'"
+    (btnClick)="navegar()"
+    (action)="login()">
+<app-login-form [(authData)]="authData"></app-login-form></app-default-login-signup-layout>

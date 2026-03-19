@@ -1,0 +1,17 @@
+<app-table-header [label]="'Created At'"></app-table-header>
+
+@if (isLoading()) {
+  <p>Carregando...</p>
+} @else if (products().length === 0) {
+  <div class="d-flex align-items-center justify-content-center">
+    <p>Nenhum produto encontrado.</p>
+  </div>
+} @else {
+  @for (product of products(); track product.id) {
+    <app-product-list-card
+      [product]="product"
+      (editClick)="editClick.emit($event)"
+      (deleteClick)="deleteProduct($event)"
+    />
+  }
+}

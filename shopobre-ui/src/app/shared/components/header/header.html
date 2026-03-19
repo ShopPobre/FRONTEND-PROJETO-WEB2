@@ -1,0 +1,59 @@
+<header class="header-wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light header-bg">
+    <div class="container-fluid header-main">
+      <a class="brand-logo" routerLink="/home">
+        <span class="shop">
+          <img src="assets/images/logo.svg" alt="Shopobre" />
+        </span>
+      </a>
+
+      <div class="header-divider"></div>
+
+      <div class="search-area search-bg">
+        <app-search-input
+          [placeholder]="placeholder()"
+          (valueChange)="onSearchInputChange($event)"
+          (enter)="onSearchClick()"
+        ></app-search-input>
+        <div class="search-area__button">
+          <app-button
+            [label]="labelButton()"
+            (btnClick)="onSearchClick()"
+          ></app-button>
+        </div>
+      </div>
+
+      <div class="user-nav d-flex align-items-center gap-4 fs-6">
+        @if (isRegister()) {
+          <button type="button" (click)="btnClick.emit()" class="btn-reset-style">
+            Olá, <span class="text-second-color fw-bold">{{ text() }}</span>
+          </button>
+        } @else {
+          <app-dropdown-custom
+            (accountClick)="navegarAccount()"
+            (addressClick)="navegarAddress()"
+          ></app-dropdown-custom>
+        }
+        <a routerLink="/cart" class="position-relative fs-5 cart-icon-color cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          @if (cartCount() > 0) {
+            <span class="cart-badge">{{ cartCount() }}</span>
+          }
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="category-strip">
+    <div class="category-strip__inner">
+      @for (cat of categoryLinks; track cat.slug) {
+        <a
+          class="category-strip__link"
+          [routerLink]="['/category', cat.slug]"
+        >
+          {{ cat.label }}
+        </a>
+      }
+    </div>
+  </nav>
+</header>

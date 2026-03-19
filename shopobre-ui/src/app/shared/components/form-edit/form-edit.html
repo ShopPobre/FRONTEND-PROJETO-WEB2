@@ -1,0 +1,19 @@
+@if (label()) {
+  <label class="form-label">{{ label() }}</label>
+}
+<input
+  [type]="type()"
+  class="form-control-custom"
+  [placeholder]="placeholder()"
+  [value]="value()"
+  [attr.list]="listId()"
+  (input)="valueChange.emit($any($event.target).value)"
+/>
+
+@if (listId() && datalistOptions()?.length) {
+  <datalist [id]="listId()!">
+    @for (opt of datalistOptions()!; track opt) {
+      <option [value]="opt"></option>
+    }
+  </datalist>
+}

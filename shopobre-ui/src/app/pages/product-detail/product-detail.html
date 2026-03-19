@@ -1,0 +1,98 @@
+@if (product(); as p) {
+  <div class="product-detail-page">
+    <app-header [text]="'Visitante'" />
+    <div class="container product-detail-container">
+      <app-breadcrumb [items]="breadcrumbItems()" />
+      <div class="row product-detail-row">
+        <!-- Galeria -->
+        <div class="col-lg-7 product-gallery-col">
+            <div
+              class="product-gallery"
+              (mouseenter)="onGalleryMouseEnter()"
+              (mouseleave)="onGalleryMouseLeave()"
+            >
+            <div class="thumbnails-col">
+              @for (thumb of thumbnails().list; track $index) {
+                <button
+                  type="button"
+                  class="thumbnail-btn"
+                  [class.active]="selectedImageIndex() === $index"
+                  (click)="selectImage($index)"
+                >
+                  <img [src]="thumb" [alt]="p.name + ' ' + ($index + 1)" />
+                </button>
+              }
+              @if (thumbnails().hasMore) {
+                <div class="thumbnail-more">
+                  <span>+{{ thumbnails().total - 3 }}</span>
+                </div>
+              }
+            </div>
+            <div class="main-image-wrap" (click)="openModal()">
+              <div class="main-image-zoom">
+                <img [src]="mainImage()" [alt]="p.name" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Informações -->
+        <div class="col-lg-5 product-info-col">
+          <h1 class="product-name">{{ p.name }}</h1>
+          <p class="product-price">{{ p.price | currency : 'BRL' }}</p>
+          <p class="product-description">{{ p.description || 'Sem descrição.' }}</p>
+          <hr class="product-separator" />
+          <div class="product-actions">
+            <div class="quantity-selector">
+              <button type="button" class="qty-btn minus" (click)="decrementQuantity()" aria-label="Menos">−</button>
+              <span class="qty-value">{{ quantity() }}</span>
+              <button type="button" class="qty-btn plus" (click)="incrementQuantity()" aria-label="Mais">+</button>
+            </div>
+            <button type="button" class="btn btn-buy-now" (click)="buyNow()">Comprar Agora</button>
+            <button type="button" class="btn btn-add-cart" (click)="addToCart()" aria-label="Adicionar ao carrinho">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal galeria -->
+    @if (modalVisible()) {
+      <div class="product-modal-backdrop" (click)="closeModal()" role="button" tabindex="0" (keydown.escape)="closeModal()">
+        <div class="product-modal" (click)="$event.stopPropagation()">
+          <button type="button" class="modal-close" (click)="closeModal()" aria-label="Fechar">&times;</button>
+          <div class="product-modal-gallery">
+            <div class="modal-thumbnails">
+              @for (thumb of thumbnails().list; track $index) {
+                <button
+                  type="button"
+                  class="modal-thumb"
+                  [class.active]="selectedImageIndex() === $index"
+                  (click)="selectImage($index)"
+                >
+                  <img [src]="thumb" [alt]="p.name + ' ' + ($index + 1)" />
+                </button>
+              }
+              @if (thumbnails().hasMore) {
+                <div class="modal-thumb more">{{ thumbnails().total - 3 }}+</div>
+              }
+            </div>
+            <div class="modal-main">
+              <img [src]="mainImage()" [alt]="p.name" />
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <app-footer></app-footer>
+  </div>
+} @else {
+  <div class="product-detail-page">
+    <app-header [text]="'Visitante'" />
+    <div class="container py-5 text-center text-primary-color">
+      <p>Produto não encontrado ou carregando...</p>
+    </div>
+    <app-footer></app-footer>
+  </div>
+}

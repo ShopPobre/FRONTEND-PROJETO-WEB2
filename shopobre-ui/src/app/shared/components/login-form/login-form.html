@@ -1,0 +1,19 @@
+<form>
+  <app-form-input
+    [type]="'email'"
+    [placeholder]="'Email'"
+    [icon]="'far fa-envelope'"
+    (valueChange)="updateField('email', $event)"
+  >
+  </app-form-input>
+  <app-form-input
+    [type]="'password'"
+    [placeholder]="'Password'"
+    [icon]="'fas fa-lock'"
+    (valueChange)="updateField('password', $event)"
+  >
+  </app-form-input>
+  <div class="forgot-password">
+    <a routerLink="/forgot-password" class="text-second-color">Forgot Password!</a>
+  </div>
+</form>

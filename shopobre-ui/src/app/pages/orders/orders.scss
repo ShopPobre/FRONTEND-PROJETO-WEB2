@@ -1,0 +1,104 @@
+.orders-page {
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders-content {
+  flex: 1;
+  padding: 9rem 0 2rem;
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .status {
+    font-size: 0.95rem;
+    color: #555;
+
+    &.status-error {
+      color: #c53030;
+    }
+  }
+
+  .order-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .order-item {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .order-main {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+
+    .order-id {
+      font-weight: 600;
+    }
+
+    .order-status {
+      font-weight: 500;
+    }
+  }
+
+  .order-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .pagination {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .page-btn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+
+    &:hover:not(:disabled) {
+      background: #f3f4f6;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  .page-info {
+    color: #4b5563;
+  }
+}
+

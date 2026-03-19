@@ -1,0 +1,27 @@
+<div class="product-card">
+  <div><input class="form-check-input" type="checkbox" /></div>
+  <div class="product-info">
+    <div class="product-details">
+      <div class="product-name">{{ product()?.name }}</div>
+    </div>
+  </div>
+  <div class="column-text">{{ quantity() }}</div>
+  @if (inventory().isActive) {
+    <div class="active">
+      <i class="fas fa-check-circle"></i>
+    </div>
+  } @else {
+    <div class="deactive">
+      <i class="fas fa-times-circle"></i>
+    </div>
+  }
+  <div class="price-text">R${{ product()?.price }}</div>
+  <div class="action-btns">
+    <button class="action-btn minus" (click)="updateQuantity(-1)">
+      <i class="fas fa-minus"></i>
+    </button>
+    <button class="action-btn plus" (click)="updateQuantity(1)">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+</div>
