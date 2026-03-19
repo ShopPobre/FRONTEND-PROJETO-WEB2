@@ -8,5 +8,7 @@
       (input)="searchChange.emit(($any($event.target).value ?? ''))"
     />
   </div>
-  <app-button [label]="label()" (btnClick)="btnClick.emit()"></app-button>
+  @if(label() !== '') {
+    <app-button [label]="label()" (btnClick)="btnClick.emit()"></app-button>
+  }
 </div>

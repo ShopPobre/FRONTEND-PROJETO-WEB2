@@ -20,7 +20,7 @@ export class ProductService {
   getById(id: number): Observable<ProductDetailView | null> {
     return this.http.get<ProductResponseDTO>(`${this.url}/${id}`).pipe(
       map((p) => this.toDetailView(p)),
-      catchError(() => of(null))
+      catchError(() => of(null)),
     );
   }
 
@@ -83,8 +83,12 @@ export class ProductService {
     });
   }
 
-  getProducts() {
-    return this.http.get(this.url, { headers: this.authHeaders });
+  getProducts(): Observable<ProductResponseDTO[]> {
+    return this.http
+      .get<{ data: ProductResponseDTO[] }>(this.url, {
+        headers: this.authHeaders,
+      })
+      .pipe(map((response) => response.data));
   }
 
   /**
@@ -102,8 +106,10 @@ export class ProductService {
     return this.http.post(this.url, productData, { headers: this.authHeaders });
   }
 
-  getProductById(productID: string) {
-    return this.http.get(`${this.url}/${productID}`, { headers: this.authHeaders });
+  getProductById(id: string): Observable<ProductResponseDTO> {
+    return this.http.get<ProductResponseDTO>(`${this.url}/${id}`, {
+      headers: this.authHeaders,
+    });
   }
 
   updateProduct(productID: string, payload: unknown) {

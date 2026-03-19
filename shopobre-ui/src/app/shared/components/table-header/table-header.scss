@@ -1,6 +1,5 @@
 .table-header {
   display: grid;
-  grid-template-columns: 40px 2.8fr 1.5fr 1fr 0.8fr 1fr;
   padding: 10px 25px;
   color: black;
   font-size: 0.85rem;
@@ -9,6 +8,16 @@
   border-radius: 8px 8px 0 0;
   margin-bottom: 2px;
   border-bottom: 1px solid #f8f8f8;
+}
+
+.table-header {
+  &.with-price {
+    grid-template-columns: 40px 2.8fr 1.5fr 1fr 0.8fr 1fr;
+  }
+
+  &.without-price {
+    grid-template-columns: 40px 2.8fr 1.5fr 1fr 1fr;
+  }
 }
 
 .checkbox-lg {

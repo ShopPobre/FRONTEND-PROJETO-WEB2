@@ -8,6 +8,7 @@ import {
   OrderResponseDTO,
   PaginatedOrdersResponse,
   OrderDetailResponseDTO,
+  OrderStatus,
 } from '../models/order.model';
 import { CartItem } from '../models/cart.model';
 import { Observable } from 'rxjs';
@@ -31,10 +32,7 @@ export class OrderService {
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
   }
-  createOrderFromCart(
-    cartItems: CartItem[],
-    addressId: string,
-  ): Observable<OrderResponseDTO> {
+  createOrderFromCart(cartItems: CartItem[], addressId: string): Observable<OrderResponseDTO> {
     const userId = this.authService.getUserId();
 
     if (!userId) {
@@ -65,9 +63,7 @@ export class OrderService {
     }
 
     const endpoint = `${this.url}/user/${userId}`;
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('limit', limit.toString());
+    let params = new HttpParams().set('page', page.toString()).set('limit', limit.toString());
 
     return this.http.get<PaginatedOrdersResponse>(endpoint, {
       headers: this.authHeaders,
@@ -88,5 +84,25 @@ export class OrderService {
       headers: this.authHeaders,
     });
   }
-}
 
+  getAllOrders(page = 1, limit = 10): Observable<PaginatedOrdersResponse> {
+    const params = new HttpParams().set('page', page.toString()).set('limit', limit.toString());
+
+    return this.http.get<PaginatedOrdersResponse>(this.url, {
+      headers: this.authHeaders,
+      params,
+    });
+  }
+
+  updateOrder(id: number, payload: { status: OrderStatus }): Observable<OrderResponseDTO> {
+    return this.http.put<OrderResponseDTO>(`${this.url}/${id}`, payload, {
+      headers: this.authHeaders,
+    });
+  }
+
+  deleteOrder(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`, {
+      headers: this.authHeaders,
+    });
+  }
+}
